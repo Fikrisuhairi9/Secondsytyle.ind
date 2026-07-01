@@ -1,0 +1,1098 @@
+<!doctype html>
+<html lang="id">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Secondstyle.ind — Pasar Preloved</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;0,9..144,800;1,9..144,500&family=Inter:wght@400;500;600;700&family=Space+Mono:wght@400;700&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      :root {
+        --ink: #1f2a33;
+        --denim-900: #24323d;
+        --denim-700: #34454f;
+        --denim-600: #4f6b80;
+        --denim-300: #a9bfc9;
+        --denim-100: #dce6ea;
+        --canvas: #f5f1e6;
+        --canvas-2: #ece6d7;
+        --thread: #d9622e;
+        --thread-dark: #a8481e;
+        --olive: #5c7a52;
+        --olive-dark: #3f5639;
+        --paper: #fffdf8;
+        --line: rgba(36, 50, 61, 0.14);
+        --radius: 4px;
+      }
+      * {
+        box-sizing: border-box;
+      }
+      html,
+      body {
+        margin: 0;
+        padding: 0;
+        scroll-behavior: smooth;
+      }
+      body {
+        background: var(--canvas);
+        color: var(--ink);
+        font-family: "Inter", sans-serif;
+        line-height: 1.5;
+        -webkit-font-smoothing: antialiased;
+      }
+      h1,
+      h2,
+      h3 {
+        font-family: "Fraunces", serif;
+        margin: 0;
+        letter-spacing: -0.01em;
+        font-weight: 600;
+      }
+      .mono {
+        font-family: "Space Mono", monospace;
+      }
+      a {
+        color: inherit;
+        text-decoration: none;
+      }
+      a:hover {
+        text-decoration: none;
+      }
+      img {
+        display: block;
+        max-width: 100%;
+      }
+      button {
+        font-family: inherit;
+        cursor: pointer;
+      }
+
+      /* ---- Header ---- */
+      header {
+        position: sticky;
+        top: 0;
+        z-index: 50;
+        background: var(--denim-900);
+        color: var(--canvas);
+        border-bottom: 3px solid var(--thread);
+      }
+      .header-inner {
+        max-width: 1180px;
+        margin: 0 auto;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 16px 24px;
+        gap: 24px;
+      }
+      .logo {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        font-family: "Fraunces", serif;
+        font-weight: 800;
+        font-size: 24px;
+        color: var(--canvas);
+        white-space: nowrap;
+      }
+      .logo .dot {
+        color: var(--thread);
+      }
+      nav.main-nav {
+        display: flex;
+        gap: 28px;
+        font-size: 14px;
+        font-weight: 500;
+      }
+      nav.main-nav a {
+        text-decoration: none;
+        color: var(--denim-100);
+        padding: 6px 2px;
+        border-bottom: 2px solid transparent;
+        transition: border-color 0.15s ease, color 0.15s ease;
+      }
+      nav.main-nav a:hover {
+        color: #fff;
+        border-color: var(--thread);
+      }
+      .header-actions {
+        display: flex;
+        align-items: center;
+        gap: 16px;
+      }
+      .search-box {
+        display: flex;
+        align-items: center;
+        background: rgba(255, 255, 255, 0.08);
+        border: 1px solid rgba(255, 255, 255, 0.18);
+        border-radius: 99px;
+        padding: 7px 14px;
+        min-width: 230px;
+      }
+      .search-box input {
+        background: none;
+        border: none;
+        outline: none;
+        color: #fff;
+        font-size: 13px;
+        width: 100%;
+      }
+      .search-box input::placeholder {
+        color: rgba(255, 255, 255, 0.5);
+      }
+      .auth-buttons {
+        display: flex;
+        gap: 10px;
+        align-items: center;
+      }
+      .btn-login {
+        background: transparent;
+        border: 1.5px solid var(--denim-300);
+        color: var(--canvas);
+        padding: 8px 18px;
+        border-radius: 99px;
+        font-size: 13px;
+        font-weight: 600;
+        transition: all 0.2s;
+        cursor: pointer;
+        display: inline-flex;
+        align-items: center;
+      }
+      .btn-login:hover {
+        background: rgba(255, 255, 255, 0.1);
+        border-color: #fff;
+      }
+      .btn-register {
+        background: var(--thread);
+        border: none;
+        color: #fff;
+        padding: 8px 18px;
+        border-radius: 99px;
+        font-size: 13px;
+        font-weight: 600;
+        transition: all 0.2s;
+        cursor: pointer;
+        display: inline-flex;
+        align-items: center;
+      }
+      .btn-register:hover {
+        background: var(--thread-dark);
+        transform: scale(1.02);
+      }
+      .cart-btn {
+        position: relative;
+        background: var(--thread);
+        color: #fff;
+        border: none;
+        border-radius: 99px;
+        padding: 9px 18px;
+        font-size: 13px;
+        font-weight: 600;
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        cursor: pointer;
+      }
+      .cart-btn:hover {
+        background: var(--thread-dark);
+      }
+      .cart-count {
+        background: #fff;
+        color: var(--thread-dark);
+        border-radius: 99px;
+        min-width: 18px;
+        height: 18px;
+        padding: 0 4px;
+        font-size: 11px;
+        font-weight: 700;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+
+      /* ---- Hero ---- */
+      .hero {
+        max-width: 1180px;
+        margin: 0 auto;
+        padding: 64px 24px 56px;
+        display: grid;
+        grid-template-columns: 1.1fr 0.9fr;
+        gap: 48px;
+        align-items: center;
+      }
+      .stitch-rule {
+        width: 64px;
+        height: 2px;
+        background-image: linear-gradient(
+          to right,
+          var(--thread) 60%,
+          transparent 0%
+        );
+        background-size: 10px 2px;
+        margin-bottom: 18px;
+      }
+      .eyebrow {
+        font-family: "Space Mono", monospace;
+        font-size: 12px;
+        letter-spacing: 0.12em;
+        text-transform: uppercase;
+        color: var(--olive-dark);
+        margin-bottom: 10px;
+        display: block;
+      }
+      .hero h1 {
+        font-size: 50px;
+        line-height: 1.04;
+        margin-bottom: 18px;
+      }
+      .hero h1 em {
+        font-style: italic;
+        color: var(--thread);
+      }
+      .hero p.lead {
+        font-size: 16.5px;
+        color: var(--denim-700);
+        max-width: 480px;
+        margin-bottom: 28px;
+      }
+      .hero-ctas {
+        display: flex;
+        gap: 14px;
+        flex-wrap: wrap;
+      }
+      .btn {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        padding: 13px 24px;
+        border-radius: 99px;
+        font-size: 14px;
+        font-weight: 600;
+        border: 1.5px solid var(--ink);
+        text-decoration: none;
+        cursor: pointer;
+        transition: all 0.2s;
+      }
+      .btn-primary {
+        background: var(--ink);
+        color: var(--canvas);
+      }
+      .btn-primary:hover {
+        background: var(--thread);
+        border-color: var(--thread);
+      }
+      .btn-ghost {
+        background: transparent;
+        color: var(--ink);
+      }
+      .btn-ghost:hover {
+        background: rgba(36, 50, 61, 0.06);
+      }
+
+      .hero-stats {
+        display: flex;
+        gap: 30px;
+        margin-top: 34px;
+      }
+      .hero-stats div {
+        font-family: "Space Mono", monospace;
+      }
+      .hero-stats .num {
+        font-size: 22px;
+        font-weight: 700;
+        color: var(--denim-900);
+      }
+      .hero-stats .lbl {
+        font-size: 11px;
+        color: var(--denim-600);
+        text-transform: uppercase;
+        letter-spacing: 0.06em;
+      }
+
+      /* hanging tag illustration */
+      .hero-visual {
+        position: relative;
+        height: 380px;
+      }
+      .hangtag-big {
+        position: absolute;
+        width: 230px;
+        background: var(--paper);
+        border: 1.5px solid var(--ink);
+        border-radius: 6px;
+        padding: 20px 18px 22px;
+        box-shadow: 6px 6px 0 var(--denim-100);
+        cursor: pointer;
+        transition: transform 0.2s;
+      }
+      .hangtag-big:hover {
+        transform: scale(1.02);
+      }
+      .hangtag-big .hole {
+        width: 14px;
+        height: 14px;
+        border-radius: 50%;
+        border: 1.5px solid var(--ink);
+        background: var(--canvas);
+        position: absolute;
+        top: 14px;
+        left: 50%;
+        transform: translateX(-50%);
+      }
+      .hangtag-big .hole::after {
+        content: "";
+        position: absolute;
+        left: 50%;
+        top: -26px;
+        width: 1px;
+        height: 26px;
+        background: var(--denim-600);
+        transform: translateX(-50%);
+      }
+      .tag-1 {
+        top: 0;
+        left: 30px;
+        transform: rotate(-7deg);
+        z-index: 2;
+      }
+      .tag-2 {
+        top: 120px;
+        left: 170px;
+        transform: rotate(6deg);
+        z-index: 1;
+        background: var(--denim-100);
+      }
+      .hangtag-big .stamp {
+        font-family: "Space Mono", monospace;
+        font-size: 11px;
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+        color: var(--olive-dark);
+        border: 1.5px solid var(--olive-dark);
+        border-radius: 3px;
+        display: inline-block;
+        padding: 2px 8px;
+        transform: rotate(-3deg);
+        margin-top: 10px;
+      }
+      .hangtag-big h3 {
+        font-size: 18px;
+        margin-top: 12px;
+      }
+      .hangtag-big .price {
+        font-family: "Space Mono", monospace;
+        font-size: 15px;
+        margin-top: 6px;
+        color: var(--thread-dark);
+        font-weight: 700;
+      }
+
+      /* ---- Section ---- */
+      .section {
+        max-width: 1180px;
+        margin: 0 auto;
+        padding: 8px 24px 80px;
+      }
+      .section-head {
+        display: flex;
+        align-items: flex-end;
+        justify-content: space-between;
+        margin-bottom: 24px;
+        flex-wrap: wrap;
+        gap: 12px;
+      }
+      .section-head h2 {
+        font-size: 28px;
+      }
+      .section-head p {
+        color: var(--denim-600);
+        font-size: 14px;
+        margin-top: 6px;
+      }
+
+      /* ---- How it works ---- */
+      .howitworks {
+        background: var(--denim-900);
+        color: var(--canvas);
+      }
+      .howitworks .section {
+        padding-top: 60px;
+      }
+      .howitworks .section-head p {
+        color: var(--denim-300);
+      }
+      .how-grid {
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        gap: 20px;
+      }
+      .how-step {
+        background: rgba(255, 255, 255, 0.05);
+        border: 1px solid rgba(255, 255, 255, 0.12);
+        border-radius: 8px;
+        padding: 22px 18px;
+      }
+      .how-step .mono {
+        color: var(--thread);
+        font-size: 12px;
+      }
+      .how-step h3 {
+        font-size: 16px;
+        margin: 10px 0 8px;
+        color: #fff;
+      }
+      .how-step p {
+        font-size: 13px;
+        color: var(--denim-300);
+      }
+
+      /* ---- Jual Section ---- */
+      .jual-section {
+        max-width: 1180px;
+        margin: 0 auto;
+        padding: 40px 24px 60px;
+      }
+      .jual-card {
+        background: var(--paper);
+        border-radius: 16px;
+        padding: 48px 32px;
+        border: 1px solid var(--line);
+        text-align: center;
+        max-width: 600px;
+        margin: 0 auto;
+      }
+      .jual-card h3 {
+        font-size: 24px;
+        margin-bottom: 12px;
+      }
+      .jual-card p {
+        color: var(--denim-600);
+        margin-bottom: 24px;
+        font-size: 15px;
+      }
+
+      /* ---- Footer ---- */
+      footer {
+        background: var(--denim-900);
+        color: var(--denim-300);
+        border-top: 1px solid rgba(255, 255, 255, 0.1);
+      }
+      .footer-inner {
+        max-width: 1180px;
+        margin: 0 auto;
+        padding: 48px 24px 28px;
+        display: grid;
+        grid-template-columns: 1.4fr 1fr 1fr 1fr;
+        gap: 30px;
+      }
+      .footer-inner h4 {
+        color: #fff;
+        font-size: 13px;
+        margin-bottom: 12px;
+        font-family: "Space Mono", monospace;
+        text-transform: uppercase;
+        letter-spacing: 0.06em;
+      }
+      .footer-inner ul {
+        list-style: none;
+        padding: 0;
+        margin: 0;
+        display: flex;
+        flex-direction: column;
+        gap: 8px;
+        font-size: 13px;
+      }
+      .footer-inner ul li a {
+        color: var(--denim-300);
+        transition: color 0.15s;
+      }
+      .footer-inner ul li a:hover {
+        color: #fff;
+      }
+      .footer-bottom {
+        border-top: 1px solid rgba(255, 255, 255, 0.1);
+        text-align: center;
+        font-size: 12px;
+        padding: 18px 0;
+        color: var(--denim-300);
+      }
+
+      /* ---- Cart drawer ---- */
+      .overlay {
+        position: fixed;
+        inset: 0;
+        background: rgba(31, 42, 51, 0.45);
+        z-index: 90;
+        opacity: 0;
+        pointer-events: none;
+        transition: opacity 0.2s ease;
+      }
+      .overlay.open {
+        opacity: 1;
+        pointer-events: auto;
+      }
+      .drawer {
+        position: fixed;
+        top: 0;
+        right: 0;
+        height: 100%;
+        width: 380px;
+        max-width: 90vw;
+        background: var(--paper);
+        z-index: 100;
+        transform: translateX(100%);
+        transition: transform 0.25s ease;
+        display: flex;
+        flex-direction: column;
+        box-shadow: -8px 0 24px rgba(0, 0, 0, 0.18);
+      }
+      .drawer.open {
+        transform: translateX(0);
+      }
+      .drawer-head {
+        padding: 20px 22px;
+        border-bottom: 1px dashed var(--denim-300);
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+      }
+      .drawer-head h3 {
+        font-size: 19px;
+      }
+      .close-btn {
+        background: none;
+        border: none;
+        font-size: 20px;
+        color: var(--denim-600);
+        cursor: pointer;
+      }
+      .drawer-body {
+        flex: 1;
+        overflow-y: auto;
+        padding: 18px 22px;
+      }
+      .cart-item {
+        display: flex;
+        gap: 12px;
+        padding: 14px 0;
+        border-bottom: 1px solid var(--line);
+      }
+      .cart-item img {
+        width: 62px;
+        height: 74px;
+        object-fit: cover;
+        border-radius: 4px;
+        border: 1px solid var(--line);
+      }
+      .cart-item .ci-body {
+        flex: 1;
+      }
+      .cart-item h4 {
+        font-size: 13.5px;
+        font-weight: 600;
+        margin: 0 0 3px;
+      }
+      .cart-item .ci-meta {
+        font-size: 11.5px;
+        color: var(--denim-600);
+        font-family: "Space Mono", monospace;
+      }
+      .qty-row {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        margin-top: 8px;
+      }
+      .qty-btn {
+        width: 22px;
+        height: 22px;
+        border-radius: 50%;
+        border: 1px solid var(--denim-300);
+        background: none;
+        font-size: 13px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: var(--ink);
+        cursor: pointer;
+      }
+      .qty-btn:hover {
+        background: var(--denim-100);
+      }
+      .ci-remove {
+        font-size: 11px;
+        color: var(--thread-dark);
+        background: none;
+        border: none;
+        text-decoration: underline;
+        margin-left: auto;
+        padding: 0;
+        cursor: pointer;
+      }
+      .ci-remove:hover {
+        color: var(--thread);
+      }
+      .drawer-foot {
+        padding: 18px 22px 24px;
+        border-top: 1px dashed var(--denim-300);
+      }
+      .total-row {
+        display: flex;
+        justify-content: space-between;
+        font-size: 14px;
+        margin-bottom: 4px;
+        color: var(--denim-700);
+      }
+      .total-row.grand {
+        font-size: 17px;
+        font-weight: 700;
+        color: var(--ink);
+        margin: 10px 0 16px;
+        font-family: "Space Mono", monospace;
+      }
+      .checkout-btn {
+        width: 100%;
+        background: var(--ink);
+        color: var(--canvas);
+        border: none;
+        border-radius: 99px;
+        padding: 14px;
+        font-size: 14px;
+        font-weight: 700;
+        cursor: pointer;
+        transition: background 0.2s;
+      }
+      .checkout-btn:hover {
+        background: var(--thread);
+      }
+      .cart-empty {
+        text-align: center;
+        padding: 50px 10px;
+        color: var(--denim-600);
+        font-size: 13.5px;
+      }
+
+      .toast {
+        position: fixed;
+        bottom: 24px;
+        left: 50%;
+        transform: translateX(-50%) translateY(20px);
+        background: var(--ink);
+        color: var(--canvas);
+        padding: 11px 20px;
+        border-radius: 99px;
+        font-size: 13px;
+        z-index: 200;
+        opacity: 0;
+        transition: all 0.25s ease;
+        pointer-events: none;
+      }
+      .toast.show {
+        opacity: 1;
+        transform: translateX(-50%) translateY(0);
+      }
+
+      @media (max-width: 880px) {
+        nav.main-nav {
+          display: none;
+        }
+        .search-box {
+          display: none;
+        }
+        .hero {
+          grid-template-columns: 1fr;
+        }
+        .hero-visual {
+          display: none;
+        }
+        .how-grid {
+          grid-template-columns: repeat(2, 1fr);
+        }
+        .footer-inner {
+          grid-template-columns: 1fr 1fr;
+        }
+        .auth-buttons .btn-login span,
+        .auth-buttons .btn-register span {
+          display: none;
+        }
+      }
+      @media (max-width: 480px) {
+        .how-grid {
+          grid-template-columns: 1fr;
+        }
+        .footer-inner {
+          grid-template-columns: 1fr;
+        }
+        .hero h1 {
+          font-size: 32px;
+        }
+        .header-inner {
+          flex-wrap: wrap;
+          gap: 12px;
+        }
+        .auth-buttons {
+          gap: 6px;
+        }
+        .btn-login,
+        .btn-register {
+          padding: 6px 12px;
+          font-size: 12px;
+        }
+        .cart-btn {
+          padding: 6px 12px;
+          font-size: 12px;
+        }
+        .jual-card {
+          padding: 32px 20px;
+        }
+        .jual-card h3 {
+          font-size: 20px;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <header>
+      <div class="header-inner">
+        <a href="index.html" class="logo"
+          >Secondstyle.ind<span class="dot">.</span></a
+        >
+        <nav class="main-nav">
+          <a href="#cara">Cara Kerja</a>
+          <a href="#jual">Mulai Jualan</a>
+          <a href="#footer">Tentang</a>
+        </nav>
+        <div class="header-actions">
+          <div class="search-box">
+            <span class="mono" style="margin-right: 6px; font-size: 13px"
+              >⌕</span
+            >
+            <input
+              id="searchInput"
+              type="text"
+              placeholder="Cari kemeja, jaket, sepatu..."
+            />
+          </div>
+          <div class="auth-buttons">
+            <a href="login.html" class="btn-login"><span>Masuk</span></a>
+            <a href="register.html" class="btn-register"><span>Daftar</span></a>
+          </div>
+          <button class="cart-btn" id="openCart">
+            Keranjang <span class="cart-count" id="cartCount">0</span>
+          </button>
+        </div>
+      </div>
+    </header>
+
+    <!-- HERO SECTION -->
+    <section class="hero" id="beranda">
+      <div>
+        <span class="eyebrow">Pasar preloved terkurasi</span>
+        <div class="stitch-rule"></div>
+        <h1>Baju bekas <em>cerita baru</em>,<br />bukan kaleng-kaleng.</h1>
+        <p class="lead">
+          Secondstyle.ind tempat jual-beli barang preloved yang sudah dicek
+          kondisinya satu per satu — dari jaket vintage sampai sneakers langka,
+          langsung dari lemari penjual ke kamu.
+        </p>
+        <div class="hero-ctas">
+          <a href="#cara" class="btn btn-primary">Mulai Belanja</a>
+          <a href="register.html" class="btn btn-ghost">Jual Barangmu</a>
+        </div>
+        <div class="hero-stats">
+          <div>
+            <div class="num">12.400+</div>
+            <div class="lbl">Barang aktif</div>
+          </div>
+          <div>
+            <div class="num">3.100+</div>
+            <div class="lbl">Penjual terverifikasi</div>
+          </div>
+          <div>
+            <div class="num">4.8★</div>
+            <div class="lbl">Rating kepuasan</div>
+          </div>
+        </div>
+      </div>
+      <div class="hero-visual">
+        <div class="hangtag-big tag-2" data-product='{"id":1,"name":"Jaket Denim Levi\'s 90s","price":185000,"cond":"Like New","seed":"denimjacket1"}'>
+          <div class="hole"></div>
+          <span class="stamp">Like New</span>
+          <h3>Jaket Denim Levi's 90s</h3>
+          <div class="price">Rp185.000</div>
+        </div>
+        <div class="hangtag-big tag-1" data-product='{"id":2,"name":"Kemeja Flanel Oversized","price":95000,"cond":"BNWT","seed":"flanel2"}'>
+          <div class="hole"></div>
+          <span
+            class="stamp"
+            style="border-color: var(--thread-dark); color: var(--thread-dark)"
+            >BNWT</span
+          >
+          <h3>Kemeja Flanel Oversized</h3>
+          <div class="price">Rp95.000</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- HOW IT WORKS -->
+    <section class="howitworks" id="cara">
+      <div class="section">
+        <div class="section-head">
+          <div>
+            <h2 style="color: #fff">Cara pesan Secondstyle.ind</h2>
+            <p>Tiga langkah sederhana, dari lemari ke keranjang.</p>
+          </div>
+        </div>
+        <div class="how-grid">
+          <div class="how-step">
+            <span class="mono">01</span>
+            <h3>Unggah Barang</h3>
+            <p>
+              Penjual foto, beri grade kondisi (BNWT/Like New/Good/Fair), dan
+              tentukan harga.
+            </p>
+          </div>
+          <div class="how-step">
+            <span class="mono">02</span>
+            <h3>Verifikasi Tim</h3>
+            <p>
+              Tim Secondstyle.ind memeriksa kelayakan deskripsi sebelum barang
+              tayang di katalog.
+            </p>
+          </div>
+          <div class="how-step">
+            <span class="mono">03</span>
+            <h3>Checkout Aman</h3>
+            <p>
+              Pembayaran ditahan sampai barang diterima sesuai deskripsi
+              (rekber).
+            </p>
+          </div>
+          <div class="how-step">
+            <span class="mono">04</span>
+            <h3>Kirim & Selesai</h3>
+            <p>Barang dikirim, penjual menerima dana, kamu kasih ulasan.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SECTION JUAL (Mulai Jualan) -->
+    <section class="jual-section" id="jual">
+      <div class="jual-card">
+        <h3>🚀 Siap Jualan di Secondstyle.ind?</h3>
+        <p>
+          Ubah barang prelovedmu jadi cuan. Gratis biaya pendaftaran!<br />
+          Daftar sebagai penjual dan mulai unggah barang favoritmu.
+        </p>
+        <a href="register.html" class="btn btn-primary" style="font-size: 16px; padding: 14px 40px;">
+          Daftar Sekarang
+        </a>
+      </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer id="footer">
+      <div class="footer-inner">
+        <div>
+          <div class="logo" style="color: #fff">
+            Secondstyle.ind<span class="dot">.</span>
+          </div>
+          <p style="font-size: 13px; margin-top: 12px; max-width: 280px">
+            Sistem informasi ide bisnis e-commerce thrifting — prototipe
+            tampilan untuk eksplorasi konsep marketplace preloved.
+          </p>
+        </div>
+        <div>
+          <h4>Belanja</h4>
+          <ul>
+            <li><a href="#cara">Cara Kerja</a></li>
+            <li><a href="#jual">Mulai Jualan</a></li>
+            <li><a href="#">Kategori</a></li>
+          </ul>
+        </div>
+        <div>
+          <h4>Akun</h4>
+          <ul>
+            <li><a href="login.html">Masuk</a></li>
+            <li><a href="register.html">Daftar</a></li>
+            <li><a href="#">Pusat Bantuan</a></li>
+          </ul>
+        </div>
+        <div>
+          <h4>Tentang</h4>
+          <ul>
+            <li><a href="#">Tentang Kami</a></li>
+            <li><a href="#">Kebijakan Privasi</a></li>
+            <li><a href="#">Hubungi Kami</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        © 2026 Secondstyle.ind — Prototipe Sistem Informasi E-commerce Thrifting
+      </div>
+    </footer>
+
+    <!-- CART DRAWER -->
+    <div class="overlay" id="overlay"></div>
+    <aside class="drawer" id="cartDrawer">
+      <div class="drawer-head">
+        <h3>Keranjang</h3>
+        <button class="close-btn" id="closeCart">✕</button>
+      </div>
+      <div class="drawer-body" id="cartBody"></div>
+      <div class="drawer-foot">
+        <div class="total-row">
+          <span>Subtotal</span><span id="subtotal" class="mono">Rp0</span>
+        </div>
+        <div class="total-row">
+          <span>Ongkir (estimasi)</span><span class="mono">Rp15.000</span>
+        </div>
+        <div class="total-row grand">
+          <span>Total</span><span id="grandtotal">Rp0</span>
+        </div>
+        <button class="checkout-btn" id="checkoutBtn">Checkout</button>
+      </div>
+    </aside>
+
+    <div class="toast" id="toast"></div>
+
+    <script>
+      // ============= CART SYSTEM =============
+      let cart = {};
+
+      function formatRp(n) {
+        return "Rp" + n.toLocaleString("id-ID");
+      }
+
+      function addToCart(id, name, price, cond, seed) {
+        if (!cart[id]) {
+          cart[id] = { qty: 0, name, price, cond, seed };
+        }
+        cart[id].qty++;
+        renderCart();
+        showToast("✅ " + name + " ditambahkan ke keranjang");
+      }
+
+      function changeQty(id, delta) {
+        if (!cart[id]) return;
+        cart[id].qty += delta;
+        if (cart[id].qty <= 0) delete cart[id];
+        renderCart();
+      }
+
+      function removeItem(id) {
+        delete cart[id];
+        renderCart();
+      }
+
+      function renderCart() {
+        const body = document.getElementById("cartBody");
+        const ids = Object.keys(cart);
+        let count = 0,
+          subtotal = 0;
+
+        ids.forEach((id) => {
+          count += cart[id].qty;
+          subtotal += cart[id].price * cart[id].qty;
+        });
+
+        document.getElementById("cartCount").textContent = count;
+
+        if (ids.length === 0) {
+          body.innerHTML =
+            '<div class="cart-empty">Keranjang masih kosong.<br>Yuk mulai cari barang preloved favoritmu.</div>';
+        } else {
+          body.innerHTML = "";
+          ids.forEach((id) => {
+            const p = cart[id];
+            const row = document.createElement("div");
+            row.className = "cart-item";
+            row.innerHTML = `
+              <img src="https://picsum.photos/seed/${p.seed}/120/150" alt="${p.name}">
+              <div class="ci-body">
+                <h4>${p.name}</h4>
+                <div class="ci-meta">${p.cond} · ${formatRp(p.price)}</div>
+                <div class="qty-row">
+                  <button class="qty-btn" data-act="minus">−</button>
+                  <span class="mono" style="font-size:13px;">${p.qty}</span>
+                  <button class="qty-btn" data-act="plus">+</button>
+                  <button class="ci-remove">Hapus</button>
+                </div>
+              </div>
+            `;
+            row.querySelector('[data-act="minus"]').onclick = () =>
+              changeQty(id, -1);
+            row.querySelector('[data-act="plus"]').onclick = () =>
+              changeQty(id, 1);
+            row.querySelector(".ci-remove").onclick = () => removeItem(id);
+            body.appendChild(row);
+          });
+        }
+
+        document.getElementById("subtotal").textContent = formatRp(subtotal);
+        document.getElementById("grandtotal").textContent = formatRp(
+          subtotal ? subtotal + 15000 : 0
+        );
+      }
+
+      function showToast(msg) {
+        const t = document.getElementById("toast");
+        t.textContent = msg;
+        t.classList.add("show");
+        clearTimeout(t._timer);
+        t._timer = setTimeout(() => t.classList.remove("show"), 2000);
+      }
+
+      // ============= CART DRAWER =============
+      document.getElementById("openCart").onclick = () => {
+        document.getElementById("cartDrawer").classList.add("open");
+        document.getElementById("overlay").classList.add("open");
+      };
+      document.getElementById("closeCart").onclick = closeDrawer;
+      document.getElementById("overlay").onclick = closeDrawer;
+
+      function closeDrawer() {
+        document.getElementById("cartDrawer").classList.remove("open");
+        document.getElementById("overlay").classList.remove("open");
+      }
+
+      document.getElementById("checkoutBtn").onclick = () => {
+        if (Object.keys(cart).length === 0) {
+          showToast("Keranjang masih kosong");
+          return;
+        }
+        showToast("🛒 Demo: alur checkout belum terhubung ke pembayaran");
+      };
+
+      // ============= PRODUCT CLICK (HANGTAG) =============
+      document.querySelectorAll(".hangtag-big").forEach((el) => {
+        el.addEventListener("click", function () {
+          try {
+            const data = JSON.parse(this.dataset.product);
+            addToCart(data.id, data.name, data.price, data.cond, data.seed);
+          } catch (e) {
+            console.log("Error parsing product data");
+          }
+        });
+      });
+
+      // ============= SEARCH =============
+      document.getElementById("searchInput").addEventListener("keydown", function (e) {
+        if (e.key === "Enter") {
+          const query = this.value.trim();
+          if (query) {
+            showToast("🔍 Mencari: " + query + " (demo)");
+          }
+        }
+      });
+
+      // ============= INIT =============
+      renderCart();
+    </script>
+  </body>
+</html>

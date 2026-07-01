@@ -1,0 +1,861 @@
+<!doctype html>
+<html lang="id">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Daftar — Secondstyle.ind</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;0,9..144,800;1,9..144,500&family=Inter:wght@400;500;600;700&family=Space+Mono:wght@400;700&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      * {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+      }
+
+      :root {
+        --thread: #d9622e;
+        --thread-dark: #a8481e;
+        --ink: #1f2a33;
+        --denim-600: #4f6b80;
+        --denim-300: #a9bfc9;
+        --canvas: #f5f1e6;
+        --paper: #fffdf8;
+        --line: rgba(36, 50, 61, 0.12);
+        --radius: 12px;
+        --shadow: 0 20px 60px rgba(31, 42, 51, 0.08);
+        --transition: 0.25s ease;
+      }
+
+      body {
+        background: var(--canvas);
+        font-family:
+          "Inter",
+          -apple-system,
+          BlinkMacSystemFont,
+          sans-serif;
+        min-height: 100vh;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 24px;
+        background-image: radial-gradient(
+          circle at 10% 20%,
+          rgba(217, 98, 46, 0.04) 0%,
+          transparent 50%
+        );
+      }
+
+      .auth-container {
+        background: var(--paper);
+        border-radius: var(--radius);
+        box-shadow: var(--shadow);
+        padding: 40px 36px;
+        max-width: 460px;
+        width: 100%;
+        border: 1px solid var(--line);
+        position: relative;
+      }
+
+      .auth-container::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        height: 4px;
+        background: linear-gradient(90deg, var(--thread), var(--thread-dark));
+        border-radius: var(--radius) var(--radius) 0 0;
+      }
+
+      .back-link {
+        display: inline-flex;
+        align-items: center;
+        gap: 6px;
+        color: var(--denim-600);
+        text-decoration: none;
+        font-size: 13px;
+        font-weight: 500;
+        margin-bottom: 18px;
+        transition: color var(--transition);
+      }
+
+      .back-link:hover {
+        color: var(--thread);
+      }
+
+      .auth-logo {
+        font-family: "Fraunces", serif;
+        font-size: 26px;
+        font-weight: 800;
+        color: var(--ink);
+        text-align: center;
+        margin-bottom: 4px;
+      }
+
+      .auth-logo a {
+        text-decoration: none;
+        color: inherit;
+        transition: color var(--transition);
+      }
+
+      .auth-logo a:hover {
+        color: var(--thread);
+      }
+
+      .auth-logo .dot {
+        color: var(--thread);
+      }
+
+      .auth-sub {
+        text-align: center;
+        color: var(--denim-600);
+        font-size: 14px;
+        margin-bottom: 28px;
+      }
+
+      .form-group {
+        margin-bottom: 16px;
+      }
+
+      .form-group label {
+        display: block;
+        font-size: 13px;
+        font-weight: 600;
+        color: var(--ink);
+        margin-bottom: 5px;
+      }
+
+      .form-group label .required {
+        color: var(--thread);
+        margin-left: 2px;
+      }
+
+      .form-group input,
+      .form-group select {
+        width: 100%;
+        padding: 11px 14px;
+        border: 1.5px solid var(--line);
+        border-radius: 8px;
+        font-size: 14px;
+        font-family: "Inter", sans-serif;
+        background: #faf8f5;
+        transition:
+          border-color var(--transition),
+          box-shadow var(--transition);
+        color: var(--ink);
+      }
+
+      .form-group input::placeholder {
+        color: #b0a89e;
+      }
+
+      .form-group input:focus,
+      .form-group select:focus {
+        outline: none;
+        border-color: var(--thread);
+        background: #fff;
+        box-shadow: 0 0 0 3px rgba(217, 98, 46, 0.08);
+      }
+
+      .form-group input.error {
+        border-color: #dc3545;
+        background: #fff8f8;
+      }
+
+      .form-group .error-text {
+        font-size: 12px;
+        color: #dc3545;
+        margin-top: 4px;
+        display: none;
+      }
+
+      .form-group .error-text.show {
+        display: block;
+      }
+
+      .form-group select {
+        appearance: none;
+        background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%234f6b80' stroke-width='1.5' fill='none' stroke-linecap='round'/%3E%3C/svg%3E");
+        background-repeat: no-repeat;
+        background-position: right 14px center;
+        cursor: pointer;
+      }
+
+      .form-row {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 14px;
+      }
+
+      .password-strength {
+        height: 4px;
+        border-radius: 2px;
+        margin-top: 6px;
+        background: #e9e0d8;
+        overflow: hidden;
+      }
+
+      .password-strength .bar {
+        height: 100%;
+        width: 0%;
+        border-radius: 2px;
+        transition:
+          width 0.3s,
+          background 0.3s;
+      }
+
+      .password-hint {
+        font-size: 12px;
+        color: var(--denim-600);
+        margin-top: 4px;
+      }
+
+      .form-checkbox {
+        display: flex;
+        align-items: flex-start;
+        gap: 10px;
+        margin: 16px 0 22px;
+        font-size: 13px;
+        color: var(--denim-600);
+        line-height: 1.4;
+      }
+
+      .form-checkbox input[type="checkbox"] {
+        margin-top: 2px;
+        width: 16px;
+        height: 16px;
+        accent-color: var(--thread);
+        cursor: pointer;
+        flex-shrink: 0;
+      }
+
+      .form-checkbox input[type="checkbox"].error {
+        outline: 2px solid #dc3545;
+        outline-offset: 2px;
+      }
+
+      .form-checkbox a {
+        color: var(--thread);
+        text-decoration: none;
+        font-weight: 500;
+        transition: color var(--transition);
+      }
+
+      .form-checkbox a:hover {
+        color: var(--thread-dark);
+        text-decoration: underline;
+      }
+
+      .form-checkbox .error-text {
+        display: none;
+        font-size: 12px;
+        color: #dc3545;
+        margin-left: 4px;
+      }
+
+      .form-checkbox .error-text.show {
+        display: inline;
+      }
+
+      .btn-auth {
+        width: 100%;
+        padding: 13px;
+        background: var(--ink);
+        color: #fff;
+        border: none;
+        border-radius: 99px;
+        font-size: 15px;
+        font-weight: 600;
+        cursor: pointer;
+        transition: all var(--transition);
+        position: relative;
+      }
+
+      .btn-auth:hover {
+        background: var(--thread);
+        transform: translateY(-1px);
+        box-shadow: 0 4px 14px rgba(217, 98, 46, 0.25);
+      }
+
+      .btn-auth:active {
+        transform: translateY(0);
+      }
+
+      .btn-auth:disabled {
+        opacity: 0.7;
+        cursor: not-allowed;
+        transform: none;
+        box-shadow: none;
+      }
+
+      .btn-auth .spinner {
+        display: none;
+        width: 20px;
+        height: 20px;
+        border: 2px solid rgba(255, 255, 255, 0.25);
+        border-top-color: #fff;
+        border-radius: 50%;
+        animation: spin 0.6s linear infinite;
+        margin: 0 auto;
+      }
+
+      .btn-auth.loading .spinner {
+        display: block;
+      }
+
+      .btn-auth.loading .btn-text {
+        display: none;
+      }
+
+      @keyframes spin {
+        to {
+          transform: rotate(360deg);
+        }
+      }
+
+      .divider {
+        display: flex;
+        align-items: center;
+        gap: 16px;
+        margin: 22px 0;
+        color: var(--denim-300);
+        font-size: 12px;
+        font-weight: 500;
+      }
+
+      .divider::before,
+      .divider::after {
+        content: "";
+        flex: 1;
+        height: 1px;
+        background: var(--line);
+      }
+
+      .social-btn {
+        width: 100%;
+        padding: 11px;
+        border: 1.5px solid var(--line);
+        border-radius: 99px;
+        background: transparent;
+        font-size: 14px;
+        font-weight: 500;
+        color: var(--ink);
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 10px;
+        transition: all var(--transition);
+      }
+
+      .social-btn:hover {
+        background: rgba(36, 50, 61, 0.03);
+        border-color: var(--thread);
+      }
+
+      .social-btn .google-icon {
+        font-size: 18px;
+        font-weight: 700;
+        background: conic-gradient(
+          from -45deg,
+          #ea4335,
+          #fbbc05,
+          #34a853,
+          #4285f4,
+          #ea4335
+        );
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+      }
+
+      .auth-footer {
+        text-align: center;
+        margin-top: 22px;
+        font-size: 14px;
+        color: var(--denim-600);
+      }
+
+      .auth-footer a {
+        color: var(--thread);
+        text-decoration: none;
+        font-weight: 600;
+        transition: color var(--transition);
+      }
+
+      .auth-footer a:hover {
+        color: var(--thread-dark);
+        text-decoration: underline;
+      }
+
+      .toast {
+        position: fixed;
+        bottom: 24px;
+        left: 50%;
+        transform: translateX(-50%) translateY(20px);
+        background: var(--ink);
+        color: var(--paper);
+        padding: 12px 24px;
+        border-radius: 99px;
+        font-size: 13px;
+        font-weight: 500;
+        z-index: 200;
+        opacity: 0;
+        transition: all 0.3s ease;
+        pointer-events: none;
+        box-shadow: 0 4px 16px rgba(0, 0, 0, 0.12);
+        max-width: 90%;
+        text-align: center;
+      }
+
+      .toast.show {
+        opacity: 1;
+        transform: translateX(-50%) translateY(0);
+      }
+
+      .toast.success {
+        background: #2d5a27;
+      }
+
+      .toast.error {
+        background: #b33c3c;
+      }
+
+      @media (max-width: 480px) {
+        body {
+          padding: 16px;
+        }
+
+        .auth-container {
+          padding: 28px 20px;
+          border-radius: 10px;
+        }
+
+        .auth-logo {
+          font-size: 22px;
+        }
+
+        .auth-sub {
+          font-size: 13px;
+          margin-bottom: 22px;
+        }
+
+        .form-row {
+          grid-template-columns: 1fr;
+          gap: 0;
+        }
+
+        .form-group input,
+        .form-group select {
+          padding: 10px 12px;
+          font-size: 13px;
+        }
+
+        .btn-auth {
+          padding: 12px;
+          font-size: 14px;
+        }
+
+        .auth-container::before {
+          height: 3px;
+        }
+
+        .back-link {
+          font-size: 12px;
+          margin-bottom: 14px;
+        }
+      }
+
+      @media (max-width: 380px) {
+        .auth-container {
+          padding: 20px 16px;
+        }
+
+        .form-checkbox {
+          font-size: 12px;
+        }
+
+        .social-btn {
+          font-size: 13px;
+          padding: 10px;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="auth-container">
+      <!-- Back Link -->
+      <a href="index.html" class="back-link">
+        <svg
+          width="16"
+          height="16"
+          viewBox="0 0 16 16"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="2"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+        >
+          <path d="M10 12L6 8L10 4" />
+        </svg>
+        Kembali ke Beranda
+      </a>
+
+      <!-- Logo -->
+      <div class="auth-logo">
+        <a href="index.html">Secondstyle.ind<span class="dot">.</span></a>
+      </div>
+      <p class="auth-sub">Daftar dan mulai jual-beli barang preloved</p>
+
+      <!-- Form -->
+      <form
+        id="registerForm"
+        onsubmit="return handleRegister(event);"
+        novalidate
+      >
+        <!-- Nama Lengkap -->
+        <div class="form-row">
+          <div class="form-group">
+            <label for="firstName"
+              >Nama Depan <span class="required">*</span></label
+            >
+            <input
+              type="text"
+              id="firstName"
+              placeholder="Nama depan"
+              required
+              autocomplete="given-name"
+            />
+            <div class="error-text" id="firstNameError">
+              Nama depan wajib diisi
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="lastName"
+              >Nama Belakang <span class="required">*</span></label
+            >
+            <input
+              type="text"
+              id="lastName"
+              placeholder="Nama belakang"
+              required
+              autocomplete="family-name"
+            />
+            <div class="error-text" id="lastNameError">
+              Nama belakang wajib diisi
+            </div>
+          </div>
+        </div>
+
+        <!-- Email -->
+        <div class="form-group">
+          <label for="email">Email <span class="required">*</span></label>
+          <input
+            type="email"
+            id="email"
+            placeholder="contoh@email.com"
+            required
+            autocomplete="email"
+          />
+          <div class="error-text" id="emailError">
+            Masukkan alamat email yang valid
+          </div>
+        </div>
+
+        <!-- Nomor HP -->
+        <div class="form-group">
+          <label for="phone">Nomor HP</label>
+          <input
+            type="tel"
+            id="phone"
+            placeholder="0812-3456-7890"
+            autocomplete="tel"
+          />
+        </div>
+
+        <!-- Password -->
+        <div class="form-group">
+          <label for="password"
+            >Kata Sandi <span class="required">*</span></label
+          >
+          <input
+            type="password"
+            id="password"
+            placeholder="Minimal 6 karakter"
+            required
+            autocomplete="new-password"
+          />
+          <div class="password-strength" id="passwordStrength">
+            <div class="bar" id="strengthBar"></div>
+          </div>
+          <p class="password-hint">
+            Minimal 6 karakter, kombinasi huruf &amp; angka
+          </p>
+          <div class="error-text" id="passwordError">
+            Kata sandi minimal 6 karakter
+          </div>
+        </div>
+
+        <!-- Konfirmasi Password -->
+        <div class="form-group">
+          <label for="confirmPassword"
+            >Konfirmasi Kata Sandi <span class="required">*</span></label
+          >
+          <input
+            type="password"
+            id="confirmPassword"
+            placeholder="Ulangi kata sandi"
+            required
+            autocomplete="new-password"
+          />
+          <div class="error-text" id="confirmError">
+            Konfirmasi kata sandi tidak cocok
+          </div>
+        </div>
+
+        <!-- Role -->
+        <div class="form-group">
+          <label for="role">Daftar Sebagai</label>
+          <select id="role">
+            <option value="pembeli">🛍️ Pembeli</option>
+            <option value="penjual">🏷️ Penjual</option>
+            <option value="keduanya" selected>🔄 Pembeli &amp; Penjual</option>
+          </select>
+        </div>
+
+        <!-- Terms -->
+        <div class="form-checkbox">
+          <input type="checkbox" id="terms" required />
+          <label for="terms">
+            Saya setuju dengan
+            <a href="#" id="termsLink">Syarat &amp; Ketentuan</a>
+            dan
+            <a href="#" id="privacyLink">Kebijakan Privasi</a>
+            Secondstyle.ind
+            <span class="error-text" id="termsError"
+              >Harap setujui Syarat &amp; Ketentuan</span
+            >
+          </label>
+        </div>
+
+        <!-- Submit -->
+        <button type="submit" class="btn-auth" id="registerBtn">
+          <span class="btn-text">Daftar Sekarang</span>
+          <span class="spinner"></span>
+        </button>
+      </form>
+
+      <!-- Divider -->
+      <div class="divider">atau</div>
+
+      <!-- Google -->
+      <button class="social-btn" id="googleRegister">
+        <span class="google-icon">G</span> Daftar dengan Google
+      </button>
+
+      <!-- Footer -->
+      <p class="auth-footer">
+        Sudah punya akun? <a href="login.html">Masuk di sini</a>
+      </p>
+    </div>
+
+    <!-- Toast -->
+    <div class="toast" id="toast"></div>
+
+    <script>
+      function showToast(msg, type) {
+        var t = document.getElementById("toast");
+        t.textContent = msg;
+        t.className = "toast";
+        if (type === "success") t.classList.add("success");
+        if (type === "error") t.classList.add("error");
+        t.classList.add("show");
+        clearTimeout(t._timer);
+        t._timer = setTimeout(function () {
+          t.classList.remove("show");
+        }, 3000);
+      }
+
+      // Password Strength
+      var passwordInput = document.getElementById("password");
+      var strengthBar = document.getElementById("strengthBar");
+
+      passwordInput.addEventListener("input", function () {
+        var val = this.value;
+        var strength = 0;
+
+        if (val.length >= 6) strength += 25;
+        if (/[a-z]/.test(val) && /[A-Z]/.test(val)) strength += 25;
+        if (/\d/.test(val)) strength += 25;
+        if (/[^a-zA-Z0-9]/.test(val)) strength += 25;
+
+        var color = "#e9e0d8";
+        if (strength <= 25) color = "#dc3545";
+        else if (strength <= 50) color = "#ffc107";
+        else if (strength <= 75) color = "#17a2b8";
+        else color = "#28a745";
+
+        strengthBar.style.width = strength + "%";
+        strengthBar.style.background = color;
+      });
+
+      // Register Handler
+      function handleRegister(e) {
+        e.preventDefault();
+
+        var firstName = document.getElementById("firstName");
+        var lastName = document.getElementById("lastName");
+        var email = document.getElementById("email");
+        var password = document.getElementById("password");
+        var confirmPassword = document.getElementById("confirmPassword");
+        var terms = document.getElementById("terms");
+        var registerBtn = document.getElementById("registerBtn");
+
+        // Reset errors
+        var errorEls = document.querySelectorAll(".error-text");
+        for (var i = 0; i < errorEls.length; i++) {
+          errorEls[i].classList.remove("show");
+        }
+
+        var inputs = document.querySelectorAll(".form-group input");
+        for (var j = 0; j < inputs.length; j++) {
+          inputs[j].classList.remove("error");
+        }
+        terms.classList.remove("error");
+
+        var isValid = true;
+
+        if (!firstName.value.trim()) {
+          firstName.classList.add("error");
+          document.getElementById("firstNameError").classList.add("show");
+          isValid = false;
+        }
+
+        if (!lastName.value.trim()) {
+          lastName.classList.add("error");
+          document.getElementById("lastNameError").classList.add("show");
+          isValid = false;
+        }
+
+        var emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        if (!email.value.trim() || !emailRegex.test(email.value.trim())) {
+          email.classList.add("error");
+          document.getElementById("emailError").classList.add("show");
+          isValid = false;
+        }
+
+        if (password.value.length < 6) {
+          password.classList.add("error");
+          document.getElementById("passwordError").classList.add("show");
+          isValid = false;
+        }
+
+        if (password.value !== confirmPassword.value) {
+          confirmPassword.classList.add("error");
+          document.getElementById("confirmError").classList.add("show");
+          isValid = false;
+        }
+
+        if (!terms.checked) {
+          terms.classList.add("error");
+          document.getElementById("termsError").classList.add("show");
+          isValid = false;
+        }
+
+        if (!isValid) {
+          return false;
+        }
+
+        registerBtn.classList.add("loading");
+        registerBtn.disabled = true;
+
+        setTimeout(function () {
+          registerBtn.classList.remove("loading");
+          registerBtn.disabled = false;
+
+          showToast(
+            "✅ Pendaftaran berhasil! Selamat datang di Secondstyle.ind.",
+            "success",
+          );
+
+          setTimeout(function () {
+            window.location.href = "login.html";
+          }, 1500);
+        }, 1200);
+
+        return false;
+      }
+
+      // Real-time error clear
+      var formInputs = document.querySelectorAll("#registerForm input");
+      for (var k = 0; k < formInputs.length; k++) {
+        formInputs[k].addEventListener("input", function () {
+          this.classList.remove("error");
+          var errorEl = this.parentElement.querySelector(".error-text");
+          if (errorEl) errorEl.classList.remove("show");
+        });
+      }
+
+      document.getElementById("terms").addEventListener("change", function () {
+        this.classList.remove("error");
+        document.getElementById("termsError").classList.remove("show");
+      });
+
+      // Google Register
+      document
+        .getElementById("googleRegister")
+        .addEventListener("click", function () {
+          showToast(
+            "🔑 Demo: Daftar dengan Google (belum terintegrasi)",
+            "info",
+          );
+        });
+
+      // Terms & Privacy Links
+      document
+        .getElementById("termsLink")
+        .addEventListener("click", function (e) {
+          e.preventDefault();
+          showToast("📜 Syarat & Ketentuan Secondstyle.ind (demo)", "info");
+        });
+
+      document
+        .getElementById("privacyLink")
+        .addEventListener("click", function (e) {
+          e.preventDefault();
+          showToast("🔒 Kebijakan Privasi Secondstyle.ind (demo)", "info");
+        });
+
+      // Double Click Logo → Auto-fill
+      document
+        .querySelector(".auth-logo")
+        .addEventListener("dblclick", function () {
+          document.getElementById("firstName").value = "John";
+          document.getElementById("lastName").value = "Doe";
+          document.getElementById("email").value = "john@secondstyle.id";
+          document.getElementById("phone").value = "0812-3456-7890";
+          document.getElementById("password").value = "Demo123!";
+          document.getElementById("confirmPassword").value = "Demo123!";
+          document.getElementById("role").value = "keduanya";
+          document.getElementById("terms").checked = true;
+          showToast("🔑 Demo credentials terisi! Klik Daftar.", "info");
+        });
+
+      // Enter Key Support
+      document.addEventListener("keydown", function (e) {
+        if (e.key === "Enter") {
+          var form = document.getElementById("registerForm");
+          if (form.contains(e.target)) {
+            e.preventDefault();
+            form.dispatchEvent(new Event("submit"));
+          }
+        }
+      });
+    </script>
+  </body>
+</html>

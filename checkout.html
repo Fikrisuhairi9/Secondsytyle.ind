@@ -1,0 +1,749 @@
+<!doctype html>
+<html lang="id">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Checkout — Secondstyle.ind</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;0,9..144,800;1,9..144,500&family=Inter:wght@400;500;600;700&family=Space+Mono:wght@400;700&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      * {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+      }
+      body {
+        background: #f5f1e6;
+        font-family: "Inter", sans-serif;
+        color: #1f2a33;
+        padding: 24px;
+      }
+      :root {
+        --thread: #d9622e;
+        --thread-dark: #a8481e;
+        --denim-900: #24323d;
+        --denim-600: #4f6b80;
+        --paper: #fffdf8;
+        --line: rgba(36, 50, 61, 0.1);
+        --radius: 12px;
+        --shadow: 0 4px 20px rgba(0, 0, 0, 0.06);
+      }
+
+      .container {
+        max-width: 800px;
+        margin: 0 auto;
+      }
+      .back-link {
+        display: inline-block;
+        color: var(--denim-600);
+        text-decoration: none;
+        margin-bottom: 20px;
+        font-size: 14px;
+      }
+      .back-link:hover {
+        color: var(--thread);
+      }
+
+      .card {
+        background: var(--paper);
+        border-radius: var(--radius);
+        border: 1px solid var(--line);
+        padding: 32px;
+        box-shadow: var(--shadow);
+        margin-bottom: 20px;
+      }
+      .card h2 {
+        font-family: "Fraunces", serif;
+        font-size: 24px;
+        margin-bottom: 16px;
+      }
+      .card h2 .dot {
+        color: var(--thread);
+      }
+
+      .order-summary {
+        margin-bottom: 16px;
+      }
+      .order-item {
+        display: flex;
+        justify-content: space-between;
+        padding: 8px 0;
+        border-bottom: 1px solid var(--line);
+        font-size: 14px;
+      }
+      .order-item:last-child {
+        border-bottom: none;
+      }
+      .order-total {
+        display: flex;
+        justify-content: space-between;
+        padding-top: 12px;
+        font-weight: 700;
+        font-size: 18px;
+        border-top: 2px solid var(--thread);
+        margin-top: 8px;
+      }
+
+      .payment-methods {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 16px;
+        margin: 16px 0;
+      }
+      .payment-btn {
+        padding: 16px;
+        border: 2px solid var(--line);
+        border-radius: var(--radius);
+        background: var(--paper);
+        cursor: pointer;
+        text-align: center;
+        transition: all 0.2s;
+        font-size: 14px;
+        font-weight: 600;
+      }
+      .payment-btn:hover {
+        border-color: var(--denim-600);
+      }
+      .payment-btn.active {
+        border-color: var(--thread);
+        background: #fdf6f0;
+      }
+      .payment-btn .icon {
+        font-size: 28px;
+        display: block;
+        margin-bottom: 6px;
+      }
+
+      .payment-detail {
+        background: #f8f5f0;
+        border-radius: var(--radius);
+        padding: 20px;
+        margin: 16px 0;
+        display: none;
+      }
+      .payment-detail.show {
+        display: block;
+      }
+      .payment-detail .qr-placeholder {
+        width: 200px;
+        height: 200px;
+        background: #fff;
+        border: 2px dashed var(--line);
+        border-radius: var(--radius);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin: 12px auto;
+        font-size: 13px;
+        color: var(--denim-600);
+        flex-direction: column;
+      }
+      .payment-detail .qr-placeholder .big-icon {
+        font-size: 48px;
+        opacity: 0.3;
+      }
+      .payment-detail .info-row {
+        display: flex;
+        justify-content: space-between;
+        padding: 6px 0;
+        font-size: 14px;
+        border-bottom: 1px dashed var(--line);
+      }
+      .payment-detail .info-row:last-child {
+        border-bottom: none;
+      }
+      .payment-detail .label {
+        color: var(--denim-600);
+      }
+      .payment-detail .value {
+        font-weight: 600;
+        font-family: "Space Mono", monospace;
+      }
+
+      .btn-primary {
+        width: 100%;
+        padding: 14px;
+        background: var(--thread);
+        color: #fff;
+        border: none;
+        border-radius: 99px;
+        font-size: 16px;
+        font-weight: 600;
+        cursor: pointer;
+        transition: all 0.2s;
+      }
+      .btn-primary:hover {
+        background: var(--thread-dark);
+        transform: translateY(-1px);
+        box-shadow: 0 4px 12px rgba(217, 98, 46, 0.3);
+      }
+      .btn-primary:disabled {
+        opacity: 0.6;
+        cursor: not-allowed;
+        transform: none;
+      }
+
+      .toast {
+        position: fixed;
+        bottom: 24px;
+        left: 50%;
+        transform: translateX(-50%) translateY(20px);
+        background: #1f2a33;
+        color: #fff;
+        padding: 12px 24px;
+        border-radius: 99px;
+        font-size: 13px;
+        z-index: 200;
+        opacity: 0;
+        transition: all 0.3s ease;
+        pointer-events: none;
+      }
+      .toast.show {
+        opacity: 1;
+        transform: translateX(-50%) translateY(0);
+      }
+      .toast.success {
+        background: #2d5a27;
+      }
+      .toast.error {
+        background: #b33c3c;
+      }
+
+      /* INVOICE */
+      .invoice {
+        display: none;
+      }
+      .invoice.show {
+        display: block;
+      }
+      .invoice-header {
+        text-align: center;
+        padding-bottom: 20px;
+        border-bottom: 2px solid var(--thread);
+        margin-bottom: 20px;
+      }
+      .invoice-header .logo {
+        font-family: "Fraunces", serif;
+        font-size: 28px;
+        font-weight: 800;
+      }
+      .invoice-header .logo .dot {
+        color: var(--thread);
+      }
+      .invoice-header .sub {
+        color: var(--denim-600);
+        font-size: 13px;
+      }
+      .invoice-grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 16px;
+        margin-bottom: 20px;
+      }
+      .invoice-grid .label {
+        color: var(--denim-600);
+        font-size: 12px;
+        text-transform: uppercase;
+        letter-spacing: 0.05em;
+      }
+      .invoice-grid .value {
+        font-weight: 600;
+      }
+      .invoice-table {
+        width: 100%;
+        border-collapse: collapse;
+        margin: 16px 0;
+      }
+      .invoice-table th {
+        text-align: left;
+        padding: 8px 0;
+        border-bottom: 1px solid var(--line);
+        font-size: 12px;
+        text-transform: uppercase;
+        color: var(--denim-600);
+      }
+      .invoice-table td {
+        padding: 8px 0;
+        border-bottom: 1px solid var(--line);
+        font-size: 14px;
+      }
+      .invoice-table .total-row td {
+        font-weight: 700;
+        font-size: 16px;
+        border-top: 2px solid var(--thread);
+        padding-top: 12px;
+      }
+      .status-badge {
+        display: inline-block;
+        padding: 4px 16px;
+        border-radius: 99px;
+        font-size: 13px;
+        font-weight: 600;
+        background: #2d5a27;
+        color: #fff;
+      }
+
+      .btn-print {
+        background: var(--denim-900);
+        color: #fff;
+        border: none;
+        border-radius: 99px;
+        padding: 10px 24px;
+        font-size: 14px;
+        font-weight: 600;
+        cursor: pointer;
+        margin-right: 10px;
+      }
+      .btn-print:hover {
+        background: var(--denim-600);
+      }
+
+      .btn-secondary {
+        display: inline-block;
+        background: var(--denim-900);
+        color: #fff;
+        border: none;
+        border-radius: 99px;
+        padding: 10px 24px;
+        font-size: 14px;
+        font-weight: 600;
+        cursor: pointer;
+        text-decoration: none;
+        text-align: center;
+      }
+      .btn-secondary:hover {
+        background: var(--denim-600);
+      }
+
+      @media (max-width: 600px) {
+        .payment-methods {
+          grid-template-columns: 1fr;
+        }
+        .invoice-grid {
+          grid-template-columns: 1fr;
+        }
+        .card {
+          padding: 20px;
+        }
+      }
+
+      .spinner {
+        display: none;
+        width: 20px;
+        height: 20px;
+        border: 2px solid rgba(255, 255, 255, 0.3);
+        border-top-color: #fff;
+        border-radius: 50%;
+        animation: spin 0.6s linear infinite;
+        margin: 0 auto;
+      }
+      @keyframes spin {
+        to {
+          transform: rotate(360deg);
+        }
+      }
+      .btn-primary.loading .spinner {
+        display: block;
+      }
+      .btn-primary.loading .btn-text {
+        display: none;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <a href="katalog.html" class="back-link">← Kembali ke Katalog</a>
+
+      <!-- ====== CHECKOUT CARD ====== -->
+      <div id="checkoutSection" class="card">
+        <h2>🧾 Ringkasan Pesanan</h2>
+        <div class="order-summary" id="orderSummary"></div>
+        <div class="order-total">
+          <span>Total</span>
+          <span id="grandTotal">Rp0</span>
+        </div>
+      </div>
+
+      <!-- ====== PAYMENT CARD ====== -->
+      <div id="paymentSection" class="card">
+        <h2>💳 Pilih Metode Pembayaran</h2>
+
+        <div class="payment-methods">
+          <button class="payment-btn active" data-method="qris">
+            <span class="icon">📱</span>
+            QRIS
+            <small
+              style="
+                display: block;
+                font-weight: 400;
+                font-size: 12px;
+                color: var(--denim-600);
+              "
+              >Scan QR Code</small
+            >
+          </button>
+          <button class="payment-btn" data-method="mbanking">
+            <span class="icon">🏦</span>
+            M-Banking BCA
+            <small
+              style="
+                display: block;
+                font-weight: 400;
+                font-size: 12px;
+                color: var(--denim-600);
+              "
+              >BCA Mobile / ATM</small
+            >
+          </button>
+        </div>
+
+        <!-- QRIS Detail -->
+        <div id="qrisDetail" class="payment-detail show">
+          <h3 style="text-align: center; margin-bottom: 8px">📱 Scan QRIS</h3>
+          <div class="qr-placeholder">
+            <span class="big-icon">📱</span>
+            <span>QRIS Code</span>
+            <span style="font-size: 11px; color: #aaa">(Simulasi)</span>
+          </div>
+          <div class="info-row">
+            <span class="label">Nomor Virtual</span>
+            <span class="value">8810 1234 5678 9012</span>
+          </div>
+          <div class="info-row">
+            <span class="label">Nama Merchant</span>
+            <span class="value">Secondstyle.ind</span>
+          </div>
+          <div class="info-row">
+            <span class="label">Total Pembayaran</span>
+            <span class="value" id="qrisTotal">Rp0</span>
+          </div>
+        </div>
+
+        <!-- M-Banking BCA Detail -->
+        <div id="mbankingDetail" class="payment-detail">
+          <h3 style="text-align: center; margin-bottom: 8px">
+            🏦 Transfer BCA
+          </h3>
+          <div class="info-row">
+            <span class="label">Bank Tujuan</span>
+            <span class="value">BCA (PT Bank Central Asia)</span>
+          </div>
+          <div class="info-row">
+            <span class="label">Nomor Rekening</span>
+            <span
+              class="value"
+              style="
+                font-family: &quot;Space Mono&quot;, monospace;
+                font-size: 18px;
+              "
+              >123 456 7890</span
+            >
+          </div>
+          <div class="info-row">
+            <span class="label">Nama Penerima</span>
+            <span class="value">Secondstyle Indonesia</span>
+          </div>
+          <div class="info-row">
+            <span class="label">Total Transfer</span>
+            <span class="value" id="mbankingTotal">Rp0</span>
+          </div>
+          <div
+            style="
+              margin-top: 12px;
+              padding: 12px;
+              background: #fff3e0;
+              border-radius: 8px;
+              font-size: 13px;
+              color: #8a6d3b;
+            "
+          >
+            💡 <strong>Kode Unik:</strong> Transfer dengan nominal
+            <strong>Rp <span id="uniqueAmount">0</span></strong> agar pesanan
+            kami kenali.
+          </div>
+        </div>
+
+        <button class="btn-primary" id="payBtn" style="margin-top: 16px">
+          <span class="btn-text">✅ Bayar Sekarang</span>
+          <span class="spinner"></span>
+        </button>
+      </div>
+
+      <!-- ====== INVOICE ====== -->
+      <div id="invoiceSection" class="card invoice">
+        <div class="invoice-header">
+          <div class="logo">Secondstyle.ind<span class="dot">.</span></div>
+          <div class="sub">Bukti Pembayaran / Invoice</div>
+          <div style="margin-top: 8px">
+            <span class="status-badge" id="invoiceStatus">✅ LUNAS</span>
+          </div>
+        </div>
+
+        <div class="invoice-grid">
+          <div>
+            <div class="label">Nomor Invoice</div>
+            <div class="value" id="invoiceNumber">INV-2026-0001</div>
+          </div>
+          <div>
+            <div class="label">Tanggal</div>
+            <div class="value" id="invoiceDate">-</div>
+          </div>
+          <div>
+            <div class="label">Metode Pembayaran</div>
+            <div class="value" id="invoiceMethod">-</div>
+          </div>
+          <div>
+            <div class="label">Status</div>
+            <div class="value" style="color: #2d5a27">✅ Lunas</div>
+          </div>
+        </div>
+
+        <h3 style="font-size: 16px; margin: 16px 0 8px">📦 Detail Pesanan</h3>
+        <table class="invoice-table" id="invoiceTable">
+          <thead>
+            <tr>
+              <th>Produk</th>
+              <th>Qty</th>
+              <th>Harga</th>
+              <th>Subtotal</th>
+            </tr>
+          </thead>
+          <tbody id="invoiceBody"></tbody>
+        </table>
+
+        <div
+          style="
+            display: flex;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 12px;
+            margin-top: 20px;
+            padding-top: 16px;
+            border-top: 1px solid var(--line);
+          "
+        >
+          <div style="display: flex; gap: 10px; flex-wrap: wrap">
+            <button class="btn-print" onclick="window.print()">
+              🖨️ Cetak Invoice
+            </button>
+            <a href="katalog.html" class="btn-secondary">Kembali Belanja</a>
+          </div>
+          <div style="font-size: 13px; color: var(--denim-600)">
+            <span>Terima kasih telah berbelanja di Secondstyle.ind! 🙏</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="toast" id="toast"></div>
+
+    <script>
+      // ============================================================
+      // AMBIL DATA KERANJANG DARI LOCALSTORAGE
+      // ============================================================
+      var cartData = JSON.parse(localStorage.getItem("secondstyle_cart")) || {};
+      var cart = {};
+
+      for (var key in cartData) {
+        cart[key] = {
+          qty: cartData[key].qty || 1,
+          name: cartData[key].name || "Produk #" + key,
+          price: cartData[key].price || 100000,
+        };
+      }
+
+      var selectedMethod = "qris";
+
+      // ============================================================
+      // FORMAT RUPIAH
+      // ============================================================
+      function formatRp(n) {
+        return "Rp" + n.toLocaleString("id-ID");
+      }
+
+      // ============================================================
+      // RENDER ORDER SUMMARY
+      // ============================================================
+      function renderOrder() {
+        var summary = document.getElementById("orderSummary");
+        var grandTotal = 0;
+        var itemsHtml = "";
+        var ids = Object.keys(cart);
+
+        if (ids.length === 0) {
+          summary.innerHTML =
+            '<p style="text-align:center;color:var(--denim-600);padding:20px;">Keranjang kosong. <a href="katalog.html" style="color:var(--thread);">Belanja dulu yuk!</a></p>';
+          document.getElementById("grandTotal").textContent = "Rp0";
+          document.getElementById("payBtn").disabled = true;
+          return;
+        }
+
+        ids.forEach(function (id) {
+          var item = cart[id];
+          var subtotal = item.price * item.qty;
+          grandTotal += subtotal;
+          itemsHtml +=
+            '<div class="order-item"><span>' +
+            item.name +
+            " x" +
+            item.qty +
+            "</span><span>" +
+            formatRp(subtotal) +
+            "</span></div>";
+        });
+
+        summary.innerHTML = itemsHtml;
+        document.getElementById("grandTotal").textContent =
+          formatRp(grandTotal);
+        document.getElementById("qrisTotal").textContent = formatRp(grandTotal);
+        document.getElementById("mbankingTotal").textContent =
+          formatRp(grandTotal);
+
+        var unique = grandTotal + Math.floor(Math.random() * 100);
+        document.getElementById("uniqueAmount").textContent = formatRp(unique);
+        document.getElementById("payBtn").disabled = false;
+      }
+
+      // ============================================================
+      // PAYMENT METHOD SELECTOR
+      // ============================================================
+      document.querySelectorAll(".payment-btn").forEach(function (btn) {
+        btn.addEventListener("click", function () {
+          document.querySelectorAll(".payment-btn").forEach(function (b) {
+            b.classList.remove("active");
+          });
+          this.classList.add("active");
+          selectedMethod = this.dataset.method;
+
+          document
+            .getElementById("qrisDetail")
+            .classList.toggle("show", selectedMethod === "qris");
+          document
+            .getElementById("mbankingDetail")
+            .classList.toggle("show", selectedMethod === "mbanking");
+        });
+      });
+
+      // ============================================================
+      // TOAST NOTIFICATION
+      // ============================================================
+      function showToast(msg, type) {
+        var t = document.getElementById("toast");
+        t.textContent = msg;
+        t.className = "toast";
+        if (type === "success") t.classList.add("success");
+        if (type === "error") t.classList.add("error");
+        t.classList.add("show");
+        clearTimeout(t._timer);
+        t._timer = setTimeout(function () {
+          t.classList.remove("show");
+        }, 3000);
+      }
+
+      // ============================================================
+      // PROSES PEMBAYARAN
+      // ============================================================
+      document.getElementById("payBtn").addEventListener("click", function () {
+        var btn = this;
+        var ids = Object.keys(cart);
+
+        if (ids.length === 0) {
+          showToast("Keranjang kosong!", "error");
+          return;
+        }
+
+        btn.classList.add("loading");
+        btn.disabled = true;
+
+        setTimeout(function () {
+          btn.classList.remove("loading");
+          btn.disabled = false;
+          showToast("✅ Pembayaran berhasil! Invoice dibuat.", "success");
+          generateInvoice();
+        }, 2000);
+      });
+
+      // ============================================================
+      // GENERATE INVOICE
+      // ============================================================
+      function generateInvoice() {
+        var now = new Date();
+        var dateStr = now.toLocaleDateString("id-ID", {
+          day: "2-digit",
+          month: "long",
+          year: "numeric",
+        });
+        var timeStr = now.toLocaleTimeString("id-ID", {
+          hour: "2-digit",
+          minute: "2-digit",
+        });
+
+        var invNum =
+          "INV-2026-" + String(Math.floor(1000 + Math.random() * 9000));
+
+        document.getElementById("invoiceNumber").textContent = invNum;
+        document.getElementById("invoiceDate").textContent =
+          dateStr + " " + timeStr;
+
+        var methodLabel = selectedMethod === "qris" ? "QRIS" : "M-Banking BCA";
+        document.getElementById("invoiceMethod").textContent = methodLabel;
+
+        var body = document.getElementById("invoiceBody");
+        var grandTotal = 0;
+        var rows = "";
+        var ids = Object.keys(cart);
+
+        ids.forEach(function (id) {
+          var item = cart[id];
+          var subtotal = item.price * item.qty;
+          grandTotal += subtotal;
+          rows +=
+            "<tr><td>" +
+            item.name +
+            "</td><td>" +
+            item.qty +
+            "</td><td>" +
+            formatRp(item.price) +
+            "</td><td>" +
+            formatRp(subtotal) +
+            "</td></tr>";
+        });
+
+        rows +=
+          '<tr class="total-row"><td colspan="3" style="text-align:right;">Total</td><td>' +
+          formatRp(grandTotal) +
+          "</td></tr>";
+        body.innerHTML = rows;
+
+        // Simpan riwayat
+        var history =
+          JSON.parse(localStorage.getItem("secondstyle_history")) || [];
+        history.push({
+          invoice: invNum,
+          date: dateStr + " " + timeStr,
+          method: methodLabel,
+          total: grandTotal,
+          items: cart,
+        });
+        localStorage.setItem("secondstyle_history", JSON.stringify(history));
+
+        // Kosongkan keranjang
+        localStorage.removeItem("secondstyle_cart");
+
+        document.getElementById("checkoutSection").style.display = "none";
+        document.getElementById("paymentSection").style.display = "none";
+        document.getElementById("invoiceSection").classList.add("show");
+        window.scrollTo({ top: 0, behavior: "smooth" });
+      }
+
+      // ============================================================
+      // INIT
+      // ============================================================
+      renderOrder();
+    </script>
+  </body>
+</html>

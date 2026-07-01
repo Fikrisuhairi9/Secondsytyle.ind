@@ -1,0 +1,927 @@
+<!doctype html>
+<html lang="id">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Tracking — Secondstyle.ind</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;0,9..144,800;1,9..144,500&family=Inter:wght@400;500;600;700&family=Space+Mono:wght@400;700&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      * {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+      }
+      body {
+        background: #f5f1e6;
+        font-family: "Inter", sans-serif;
+        color: #1f2a33;
+        padding: 24px;
+      }
+      :root {
+        --thread: #d9622e;
+        --thread-dark: #a8481e;
+        --denim-900: #24323d;
+        --denim-600: #4f6b80;
+        --denim-300: #a9bfc9;
+        --paper: #fffdf8;
+        --line: rgba(36, 50, 61, 0.1);
+        --radius: 12px;
+        --shadow: 0 4px 20px rgba(0, 0, 0, 0.06);
+        --green: #2d5a27;
+        --orange: #b8860b;
+        --blue: #1a6b8a;
+      }
+
+      .container {
+        max-width: 900px;
+        margin: 0 auto;
+      }
+      .back-link {
+        display: inline-block;
+        color: var(--denim-600);
+        text-decoration: none;
+        margin-bottom: 20px;
+        font-size: 14px;
+      }
+      .back-link:hover {
+        color: var(--thread);
+      }
+
+      .card {
+        background: var(--paper);
+        border-radius: var(--radius);
+        border: 1px solid var(--line);
+        padding: 32px;
+        box-shadow: var(--shadow);
+        margin-bottom: 20px;
+      }
+      .card h2 {
+        font-family: "Fraunces", serif;
+        font-size: 24px;
+        margin-bottom: 16px;
+      }
+      .card h2 .dot {
+        color: var(--thread);
+      }
+
+      /* ===== STATUS BADGE ===== */
+      .status-badge {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        padding: 6px 18px;
+        border-radius: 99px;
+        font-size: 14px;
+        font-weight: 600;
+      }
+      .status-badge .dot-status {
+        width: 10px;
+        height: 10px;
+        border-radius: 50%;
+        display: inline-block;
+      }
+      .status-badge.waiting {
+        background: #fff3e0;
+        color: #8a6d3b;
+      }
+      .status-badge.waiting .dot-status {
+        background: #ffc107;
+      }
+      .status-badge.proses {
+        background: #e3f2fd;
+        color: #0d47a1;
+      }
+      .status-badge.proses .dot-status {
+        background: #2196f3;
+      }
+      .status-badge.dikirim {
+        background: #e8f5e9;
+        color: #1b5e20;
+      }
+      .status-badge.dikirim .dot-status {
+        background: #4caf50;
+      }
+      .status-badge.diterima {
+        background: #2d5a27;
+        color: #fff;
+      }
+      .status-badge.diterima .dot-status {
+        background: #8bc34a;
+      }
+
+      /* ===== ROUTE MAP ===== */
+      .route-map {
+        background: #e9e1d9;
+        border-radius: var(--radius);
+        padding: 24px 20px;
+        margin: 16px 0;
+        position: relative;
+        min-height: 200px;
+        border: 2px dashed var(--denim-300);
+        overflow: hidden;
+      }
+      .route-map .route-line {
+        position: absolute;
+        top: 50%;
+        left: 60px;
+        right: 60px;
+        height: 3px;
+        background: var(--denim-300);
+        transform: translateY(-50%);
+      }
+      .route-map .route-line .progress {
+        height: 100%;
+        background: var(--thread);
+        transition: width 1s ease;
+        width: 0%;
+        border-radius: 2px;
+      }
+      .route-points {
+        display: flex;
+        justify-content: space-between;
+        position: relative;
+        z-index: 2;
+        padding: 0 20px;
+      }
+      .route-point {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 6px;
+        text-align: center;
+        flex: 1;
+      }
+      .route-point .dot-point {
+        width: 20px;
+        height: 20px;
+        border-radius: 50%;
+        border: 3px solid var(--denim-300);
+        background: var(--paper);
+        transition: all 0.5s;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 10px;
+        color: var(--denim-600);
+      }
+      .route-point.active .dot-point {
+        border-color: var(--thread);
+        background: var(--thread);
+        color: #fff;
+        box-shadow: 0 0 0 4px rgba(217, 98, 46, 0.2);
+      }
+      .route-point.completed .dot-point {
+        border-color: var(--green);
+        background: var(--green);
+        color: #fff;
+      }
+      .route-point .label {
+        font-size: 11px;
+        font-weight: 600;
+        color: var(--denim-600);
+      }
+      .route-point .time {
+        font-size: 10px;
+        color: var(--denim-300);
+        font-family: "Space Mono", monospace;
+      }
+      .route-point.active .label {
+        color: var(--ink);
+      }
+      .route-point.completed .label {
+        color: var(--green);
+      }
+
+      /* ===== LOCATION SIMULASI ===== */
+      .location-sim {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        padding: 12px 16px;
+        background: #f8f5f0;
+        border-radius: 8px;
+        margin-top: 12px;
+        font-size: 14px;
+      }
+      .location-sim .pin {
+        font-size: 20px;
+      }
+      .location-sim .live-dot {
+        width: 10px;
+        height: 10px;
+        border-radius: 50%;
+        background: #f44336;
+        animation: pulse-live 1.5s infinite;
+        display: inline-block;
+        margin-right: 4px;
+      }
+      @keyframes pulse-live {
+        0%,
+        100% {
+          opacity: 1;
+          transform: scale(1);
+        }
+        50% {
+          opacity: 0.4;
+          transform: scale(0.7);
+        }
+      }
+
+      /* ===== DETAIL PENGIRIMAN ===== */
+      .delivery-grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 16px;
+      }
+      .delivery-grid .item {
+        padding: 8px 0;
+        border-bottom: 1px solid var(--line);
+      }
+      .delivery-grid .item .label {
+        font-size: 12px;
+        color: var(--denim-600);
+        text-transform: uppercase;
+        letter-spacing: 0.05em;
+      }
+      .delivery-grid .item .value {
+        font-weight: 600;
+        font-size: 14px;
+        margin-top: 2px;
+      }
+
+      .btn-primary {
+        padding: 12px 28px;
+        background: var(--thread);
+        color: #fff;
+        border: none;
+        border-radius: 99px;
+        font-size: 14px;
+        font-weight: 600;
+        cursor: pointer;
+        transition: all 0.2s;
+        text-decoration: none;
+        display: inline-block;
+      }
+      .btn-primary:hover {
+        background: var(--thread-dark);
+        transform: translateY(-2px);
+        box-shadow: 0 4px 12px rgba(217, 98, 46, 0.3);
+      }
+      .btn-secondary {
+        padding: 12px 28px;
+        background: var(--denim-900);
+        color: #fff;
+        border: none;
+        border-radius: 99px;
+        font-size: 14px;
+        font-weight: 600;
+        cursor: pointer;
+        transition: all 0.2s;
+        text-decoration: none;
+        display: inline-block;
+      }
+      .btn-secondary:hover {
+        background: var(--denim-600);
+      }
+      .btn-success {
+        padding: 12px 28px;
+        background: var(--green);
+        color: #fff;
+        border: none;
+        border-radius: 99px;
+        font-size: 14px;
+        font-weight: 600;
+        cursor: pointer;
+        transition: all 0.2s;
+      }
+      .btn-success:hover {
+        background: #1a4a1a;
+      }
+      .btn-outline {
+        padding: 12px 28px;
+        background: transparent;
+        color: var(--denim-600);
+        border: 1.5px solid var(--line);
+        border-radius: 99px;
+        font-size: 14px;
+        font-weight: 600;
+        cursor: pointer;
+        transition: all 0.2s;
+      }
+      .btn-outline:hover {
+        background: var(--denim-100);
+      }
+
+      .actions {
+        display: flex;
+        gap: 12px;
+        flex-wrap: wrap;
+        margin-top: 16px;
+      }
+
+      .toast {
+        position: fixed;
+        bottom: 24px;
+        left: 50%;
+        transform: translateX(-50%) translateY(20px);
+        background: #1f2a33;
+        color: #fff;
+        padding: 12px 24px;
+        border-radius: 99px;
+        font-size: 13px;
+        z-index: 200;
+        opacity: 0;
+        transition: all 0.3s ease;
+        pointer-events: none;
+      }
+      .toast.show {
+        opacity: 1;
+        transform: translateX(-50%) translateY(0);
+      }
+      .toast.success {
+        background: var(--green);
+      }
+      .toast.error {
+        background: #b33c3c;
+      }
+
+      /* ===== TIMELINE ===== */
+      .timeline {
+        position: relative;
+        padding-left: 32px;
+        margin: 16px 0;
+      }
+      .timeline::before {
+        content: "";
+        position: absolute;
+        left: 8px;
+        top: 0;
+        bottom: 0;
+        width: 3px;
+        background: var(--denim-300);
+      }
+      .timeline-item {
+        position: relative;
+        padding: 0 0 24px 24px;
+      }
+      .timeline-item:last-child {
+        padding-bottom: 0;
+      }
+      .timeline-item .circle {
+        position: absolute;
+        left: -28px;
+        top: 2px;
+        width: 20px;
+        height: 20px;
+        border-radius: 50%;
+        border: 3px solid var(--denim-300);
+        background: var(--paper);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 10px;
+        color: var(--denim-600);
+        transition: all 0.3s;
+        z-index: 2;
+      }
+      .timeline-item.active .circle {
+        border-color: var(--thread);
+        background: var(--thread);
+        color: #fff;
+        box-shadow: 0 0 0 4px rgba(217, 98, 46, 0.2);
+      }
+      .timeline-item.completed .circle {
+        border-color: var(--green);
+        background: var(--green);
+        color: #fff;
+      }
+      .timeline-item .content .title {
+        font-weight: 600;
+        font-size: 15px;
+      }
+      .timeline-item .content .desc {
+        font-size: 13px;
+        color: var(--denim-600);
+        margin-top: 2px;
+      }
+      .timeline-item .content .time {
+        font-size: 12px;
+        color: var(--denim-300);
+        font-family: "Space Mono", monospace;
+        margin-top: 2px;
+      }
+
+      @media (max-width: 600px) {
+        .delivery-grid {
+          grid-template-columns: 1fr;
+        }
+        .card {
+          padding: 20px;
+        }
+        .actions {
+          flex-direction: column;
+        }
+        .actions .btn-primary,
+        .actions .btn-secondary,
+        .actions .btn-success,
+        .actions .btn-outline {
+          width: 100%;
+          text-align: center;
+        }
+        .route-points {
+          flex-wrap: wrap;
+          gap: 8px;
+        }
+        .route-point {
+          flex: 0 0 33%;
+        }
+        .route-map .route-line {
+          display: none;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <a href="katalog.html" class="back-link">← Kembali ke Katalog</a>
+
+      <!-- ====== HEADER TRACKING ====== -->
+      <div class="card">
+        <div
+          style="
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 12px;
+          "
+        >
+          <div>
+            <h2>📦 Tracking Pengiriman</h2>
+            <p
+              style="color: var(--denim-600); font-size: 14px; margin-top: 4px"
+            >
+              Pantau status paket kamu secara real-time
+            </p>
+          </div>
+          <div>
+            <span class="status-badge proses" id="statusBadge">
+              <span class="dot-status"></span>
+              <span id="statusText">Proses Pengiriman</span>
+            </span>
+          </div>
+        </div>
+      </div>
+
+      <!-- ====== ROUTE MAP ====== -->
+      <div class="card">
+        <h3 style="font-size: 16px; margin-bottom: 8px">🗺️ Rute Pengiriman</h3>
+        <div class="route-map">
+          <div class="route-line">
+            <div class="progress" id="routeProgress" style="width: 45%"></div>
+          </div>
+          <div class="route-points" id="routePoints">
+            <!-- Diisi oleh JS -->
+          </div>
+        </div>
+        <div class="location-sim" id="locationSim">
+          <span class="pin">📍</span>
+          <span
+            ><span class="live-dot"></span>
+            <span id="lokasiStatus"
+              >Paket sedang dalam perjalanan menuju alamat tujuan</span
+            ></span
+          >
+        </div>
+      </div>
+
+      <!-- ====== DETAIL PENGIRIMAN ====== -->
+      <div class="card">
+        <h3 style="font-size: 16px; margin-bottom: 12px">
+          📋 Detail Pengiriman
+        </h3>
+        <div class="delivery-grid">
+          <div class="item">
+            <div class="label">Nomor Resi</div>
+            <div class="value" id="resiNumber">SSI-2026-0001</div>
+          </div>
+          <div class="item">
+            <div class="label">Ekspedisi</div>
+            <div class="value" id="expedisi">JNE Reguler</div>
+          </div>
+          <div class="item">
+            <div class="label">Tanggal Kirim</div>
+            <div class="value" id="tglKirim">-</div>
+          </div>
+          <div class="item">
+            <div class="label">Estimasi Tiba</div>
+            <div class="value" id="estimasiTiba">-</div>
+          </div>
+          <div class="item" style="grid-column: 1 / -1">
+            <div class="label">Alamat Tujuan</div>
+            <div class="value" id="alamatTujuan">
+              Jl. Merdeka No. 123, Jakarta Selatan, DKI Jakarta 12345
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ====== TIMELINE ====== -->
+      <div class="card">
+        <h3 style="font-size: 16px; margin-bottom: 12px">
+          ⏳ Timeline Pengiriman
+        </h3>
+        <div class="timeline" id="timelineContainer">
+          <!-- Diisi oleh JS -->
+        </div>
+
+        <div class="actions" id="actionButtons">
+          <button class="btn-success" id="btnTerima">
+            📦 Paket Sudah Diterima
+          </button>
+          <button class="btn-outline" id="btnLacak">🔄 Lacak Ulang</button>
+          <a href="katalog.html" class="btn-secondary">Kembali Belanja</a>
+        </div>
+      </div>
+    </div>
+
+    <div class="toast" id="toast"></div>
+
+    <script>
+      // ============================================================
+      // DATA ROUTE
+      // ============================================================
+      var ROUTE_POINTS = [
+        {
+          id: 1,
+          label: "Gudang",
+          time: "08:15",
+          status: "completed",
+          desc: "Paket telah disiapkan",
+        },
+        {
+          id: 2,
+          label: "Sortir",
+          time: "09:30",
+          status: "completed",
+          desc: "Paket sedang disortir",
+        },
+        {
+          id: 3,
+          label: "Transit",
+          time: "11:45",
+          status: "active",
+          desc: "Paket dalam perjalanan",
+        },
+        {
+          id: 4,
+          label: "Kota Tujuan",
+          time: "14:20",
+          status: "pending",
+          desc: "Paket tiba di kota tujuan",
+        },
+        {
+          id: 5,
+          label: "Dikirim",
+          time: "16:00",
+          status: "pending",
+          desc: "Paket dikirim ke alamat",
+        },
+      ];
+
+      var STATUS = {
+        WAITING: "waiting",
+        PROSES: "proses",
+        DIKIRIM: "dikirim",
+        DITERIMA: "diterima",
+      };
+      var statusLabels = {
+        waiting: "Menunggu Proses",
+        proses: "Proses Pengiriman",
+        dikirim: "Paket Dikirim",
+        diterima: "Paket Diterima",
+      };
+      var statusClass = {
+        waiting: "waiting",
+        proses: "proses",
+        dikirim: "dikirim",
+        diterima: "diterima",
+      };
+
+      var currentStatus = STATUS.PROSES;
+
+      // Data timeline
+      var timelineData = [
+        {
+          status: STATUS.WAITING,
+          title: "Pesanan Dibuat",
+          desc: "Pesanan berhasil dibuat dan menunggu verifikasi",
+          time: "10:30 WIB, 20 Jun 2026",
+        },
+        {
+          status: STATUS.WAITING,
+          title: "Pembayaran Dikonfirmasi",
+          desc: "Pembayaran berhasil diverifikasi oleh sistem",
+          time: "10:45 WIB, 20 Jun 2026",
+        },
+        {
+          status: STATUS.PROSES,
+          title: "Paket Diproses",
+          desc: "Petugas sedang mempersiapkan paket untuk dikirim",
+          time: "08:15 WIB, 21 Jun 2026",
+        },
+        {
+          status: STATUS.PROSES,
+          title: "Paket Diserahkan ke Ekspedisi",
+          desc: "Paket sudah diserahkan ke JNE Reguler",
+          time: "14:30 WIB, 21 Jun 2026",
+        },
+        {
+          status: STATUS.DIKIRIM,
+          title: "Paket Dalam Perjalanan",
+          desc: "Paket sedang dalam perjalanan menuju alamat tujuan",
+          time: "09:00 WIB, 22 Jun 2026",
+        },
+        {
+          status: STATUS.DIKIRIM,
+          title: "Paket Tiba di Kota Tujuan",
+          desc: "Paket sudah tiba di kota tujuan dan sedang di sortir",
+          time: "07:30 WIB, 23 Jun 2026",
+        },
+        {
+          status: STATUS.DITERIMA,
+          title: "Paket Diterima",
+          desc: "Paket sudah diterima oleh penerima",
+          time: "10:00 WIB, 24 Jun 2026",
+        },
+      ];
+
+      // ============================================================
+      // UTILITY
+      // ============================================================
+      function showToast(msg, type) {
+        var t = document.getElementById("toast");
+        t.textContent = msg;
+        t.className = "toast";
+        if (type === "success") t.classList.add("success");
+        if (type === "error") t.classList.add("error");
+        t.classList.add("show");
+        clearTimeout(t._timer);
+        t._timer = setTimeout(function () {
+          t.classList.remove("show");
+        }, 3000);
+      }
+
+      // ============================================================
+      // GENERATE RESI
+      // ============================================================
+      function generateResi() {
+        document.getElementById("resiNumber").textContent =
+          "SSI-2026-" + String(Math.floor(1000 + Math.random() * 9000));
+        document.getElementById("tglKirim").textContent = "21 Jun 2026";
+        document.getElementById("estimasiTiba").textContent = "24 Jun 2026";
+      }
+
+      // ============================================================
+      // RENDER ROUTE MAP
+      // ============================================================
+      function renderRoute(status) {
+        var container = document.getElementById("routePoints");
+        var html = "";
+
+        var statusOrder = ["waiting", "proses", "dikirim", "diterima"];
+        var maxIndex = statusOrder.indexOf(status);
+        if (maxIndex < 0) maxIndex = 0;
+
+        // Hitung progress berdasarkan status
+        var progress = 0;
+        if (status === "waiting") progress = 10;
+        else if (status === "proses") progress = 35;
+        else if (status === "dikirim") progress = 65;
+        else if (status === "diterima") progress = 100;
+
+        document.getElementById("routeProgress").style.width = progress + "%";
+
+        ROUTE_POINTS.forEach(function (point, idx) {
+          var isCompleted = idx <= maxIndex;
+          var isActive = idx === maxIndex && status !== "diterima";
+
+          var cls = "";
+          if (isCompleted) cls = "completed";
+          if (isActive) cls = "active";
+
+          html += `
+        <div class="route-point ${cls}">
+          <div class="dot-point">${isCompleted ? "✓" : isActive ? "●" : "○"}</div>
+          <div class="label">${point.label}</div>
+          <div class="time">${point.time}</div>
+        </div>
+      `;
+        });
+
+        container.innerHTML = html;
+
+        // Update status badge
+        var badge = document.getElementById("statusBadge");
+        var statusText = document.getElementById("statusText");
+        badge.className = "status-badge " + statusClass[status];
+        statusText.textContent = statusLabels[status];
+
+        // Update lokasi
+        var lokasiEl = document.getElementById("lokasiStatus");
+        var lokasiText = {
+          waiting: "📍 Pesanan menunggu verifikasi pembayaran",
+          proses: "📦 Paket sedang diproses di gudang",
+          dikirim: "🚚 Paket sedang dalam perjalanan menuju alamat tujuan",
+          diterima: "✅ Paket sudah diterima oleh penerima",
+        };
+        lokasiEl.textContent = lokasiText[status] || lokasiText.proses;
+
+        // Update tombol
+        var btnTerima = document.getElementById("btnTerima");
+        btnTerima.style.display =
+          status === "diterima" ? "none" : "inline-block";
+      }
+
+      // ============================================================
+      // RENDER TIMELINE
+      // ============================================================
+      function renderTimeline(status) {
+        var container = document.getElementById("timelineContainer");
+        var html = "";
+
+        var statusOrder = ["waiting", "proses", "dikirim", "diterima"];
+        var maxIndex = statusOrder.indexOf(status);
+
+        timelineData.forEach(function (item) {
+          var itemStatus = item.status;
+          var itemIndex = statusOrder.indexOf(itemStatus);
+          var isCompleted = itemIndex <= maxIndex;
+          var isActive = itemIndex === maxIndex && status !== "diterima";
+
+          var icon = "";
+          if (isCompleted) icon = "✓";
+          else if (isActive) icon = "●";
+          else icon = "○";
+
+          var cls = "";
+          if (isCompleted) cls = "completed";
+          if (isActive) cls = "active";
+
+          var opacity =
+            itemIndex > maxIndex && status !== "diterima" ? "opacity:0.5;" : "";
+
+          html += `
+        <div class="timeline-item ${cls}" style="${opacity}">
+          <div class="circle">${icon}</div>
+          <div class="content">
+            <div class="title">${item.title}</div>
+            <div class="desc">${item.desc}</div>
+            <div class="time">${item.time}</div>
+          </div>
+        </div>
+      `;
+        });
+
+        container.innerHTML = html;
+      }
+
+      // ============================================================
+      // UPDATE STATUS
+      // ============================================================
+      function updateStatus(newStatus) {
+        currentStatus = newStatus;
+        renderRoute(currentStatus);
+        renderTimeline(currentStatus);
+
+        // Simpan status ke localStorage
+        localStorage.setItem("tracking_status", currentStatus);
+      }
+
+      // ============================================================
+      // TOMBOL "PAKET SUDAH DITERIMA"
+      // ============================================================
+      document
+        .getElementById("btnTerima")
+        .addEventListener("click", function () {
+          if (currentStatus === "diterima") {
+            showToast("Paket sudah diterima sebelumnya", "error");
+            return;
+          }
+
+          showToast("🔄 Mengupdate status paket...", "info");
+
+          setTimeout(function () {
+            updateStatus("diterima");
+            showToast(
+              "✅ Paket berhasil diterima! Terima kasih telah berbelanja.",
+              "success",
+            );
+            document.getElementById("btnTerima").style.display = "none";
+          }, 1500);
+        });
+
+      // ============================================================
+      // TOMBOL "LACAK ULANG"
+      // ============================================================
+      document
+        .getElementById("btnLacak")
+        .addEventListener("click", function () {
+          showToast("🔄 Melacak ulang pengiriman...", "info");
+          setTimeout(function () {
+            showToast(
+              "✅ Status terbaru: " + statusLabels[currentStatus],
+              "success",
+            );
+          }, 1000);
+        });
+
+      // ============================================================
+      // AUTO UPDATE STATUS (SIMULASI REAL-TIME)
+      // ============================================================
+      function autoUpdateStatus() {
+        var statusOrder = ["waiting", "proses", "dikirim", "diterima"];
+        var currentIndex = statusOrder.indexOf(currentStatus);
+
+        if (currentIndex < statusOrder.length - 1) {
+          setTimeout(function () {
+            var newStatus = statusOrder[currentIndex + 1];
+            updateStatus(newStatus);
+
+            if (newStatus === "dikirim") {
+              showToast("🚚 Paket sedang dalam perjalanan!", "success");
+            }
+
+            if (newStatus === "diterima") {
+              showToast("✅ Paket sudah diterima! Terima kasih.", "success");
+              document.getElementById("btnTerima").style.display = "none";
+            }
+
+            if (newStatus !== "diterima") {
+              autoUpdateStatus();
+            }
+          }, 8000);
+        }
+      }
+
+      // ============================================================
+      // SIMULASI GERAKAN LOKASI (SEPERTI SHOPEE/GOJEK)
+      // ============================================================
+      var locationIndex = 0;
+      var locations = [
+        "📍 Paket sedang menuju ke sortir pusat",
+        "📍 Paket sedang dalam perjalanan ke kota tujuan",
+        "📍 Paket telah tiba di kota tujuan",
+        "📍 Paket sedang diantar ke alamat kamu",
+        "📍 Paket sudah sampai di depan rumah!",
+      ];
+
+      function simulateLocationMove() {
+        if (currentStatus === "diterima") return;
+
+        var el = document.getElementById("lokasiStatus");
+        if (locationIndex < locations.length - 1) {
+          locationIndex++;
+          el.textContent = locations[locationIndex];
+          // Update progress
+          var progress = 20 + locationIndex * 20;
+          if (progress > 90) progress = 90;
+          document.getElementById("routeProgress").style.width = progress + "%";
+        }
+
+        // Lanjutkan jika belum diterima
+        if (
+          currentStatus !== "diterima" &&
+          locationIndex < locations.length - 1
+        ) {
+          setTimeout(simulateLocationMove, 5000);
+        }
+      }
+
+      // ============================================================
+      // INIT
+      // ============================================================
+      generateResi();
+
+      // Cek status tersimpan
+      var savedStatus = localStorage.getItem("tracking_status");
+      if (savedStatus && savedStatus !== "diterima") {
+        currentStatus = savedStatus;
+      }
+
+      renderRoute(currentStatus);
+      renderTimeline(currentStatus);
+      setTimeout(simulateLocationMove, 1000);
+
+      // Mulai auto update (komentar jika ingin manual)
+      // autoUpdateStatus();
+
+      showToast("📦 Paket sedang dalam proses pengiriman", "info");
+    </script>
+  </body>
+</html>

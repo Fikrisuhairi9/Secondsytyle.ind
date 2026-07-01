@@ -1,0 +1,506 @@
+<!doctype html>
+<html lang="id">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Masuk — Secondstyle.ind</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;0,9..144,800;1,9..144,500&family=Inter:wght@400;500;600;700&family=Space+Mono:wght@400;700&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      * {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+      }
+
+      body {
+        background: #f5f1e6;
+        font-family: "Inter", sans-serif;
+        min-height: 100vh;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 24px;
+        background-image: radial-gradient(
+          circle at 10% 20%,
+          rgba(217, 98, 46, 0.05) 0%,
+          transparent 50%
+        );
+      }
+
+      .auth-container {
+        background: #fffdf8;
+        border-radius: 16px;
+        box-shadow: 0 20px 60px rgba(31, 42, 51, 0.1);
+        padding: 48px 40px;
+        max-width: 440px;
+        width: 100%;
+        border: 1px solid rgba(36, 50, 61, 0.08);
+        position: relative;
+        overflow: hidden;
+      }
+
+      .auth-container::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        height: 4px;
+        background: linear-gradient(to right, #d9622e, #a8481e);
+      }
+
+      .auth-logo {
+        font-family: "Fraunces", serif;
+        font-size: 28px;
+        font-weight: 800;
+        color: #1f2a33;
+        text-align: center;
+        margin-bottom: 6px;
+      }
+      .auth-logo .dot {
+        color: #d9622e;
+      }
+      .auth-logo a {
+        text-decoration: none;
+        color: inherit;
+      }
+
+      .auth-sub {
+        text-align: center;
+        color: #4f6b80;
+        font-size: 14px;
+        margin-bottom: 32px;
+      }
+
+      .back-link {
+        display: inline-flex;
+        align-items: center;
+        gap: 6px;
+        color: #4f6b80;
+        text-decoration: none;
+        font-size: 13px;
+        margin-bottom: 20px;
+        transition: color 0.2s;
+      }
+      .back-link:hover {
+        color: #d9622e;
+      }
+
+      .form-group {
+        margin-bottom: 20px;
+      }
+
+      .form-group label {
+        display: block;
+        font-size: 13px;
+        font-weight: 600;
+        color: #1f2a33;
+        margin-bottom: 6px;
+      }
+
+      .form-group input {
+        width: 100%;
+        padding: 12px 16px;
+        border: 1.5px solid rgba(36, 50, 61, 0.15);
+        border-radius: 8px;
+        font-size: 14px;
+        font-family: "Inter", sans-serif;
+        background: #faf8f5;
+        transition: border-color 0.2s;
+      }
+
+      .form-group input:focus {
+        outline: none;
+        border-color: #d9622e;
+        background: #fff;
+        box-shadow: 0 0 0 3px rgba(217, 98, 46, 0.1);
+      }
+
+      .form-group input.error {
+        border-color: #dc3545;
+        background: #fff5f5;
+      }
+
+      .form-group .error-text {
+        font-size: 12px;
+        color: #dc3545;
+        margin-top: 4px;
+        display: none;
+      }
+      .form-group .error-text.show {
+        display: block;
+      }
+
+      .form-options {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        font-size: 13px;
+        margin-bottom: 24px;
+        flex-wrap: wrap;
+        gap: 8px;
+      }
+
+      .form-options label {
+        display: flex;
+        align-items: center;
+        gap: 6px;
+        color: #4f6b80;
+        cursor: pointer;
+      }
+
+      .form-options label input[type="checkbox"] {
+        width: 16px;
+        height: 16px;
+        accent-color: #d9622e;
+        cursor: pointer;
+      }
+
+      .form-options a {
+        color: #d9622e;
+        text-decoration: none;
+        font-weight: 500;
+      }
+      .form-options a:hover {
+        text-decoration: underline;
+      }
+
+      .btn-auth {
+        width: 100%;
+        padding: 14px;
+        background: #1f2a33;
+        color: #fff;
+        border: none;
+        border-radius: 99px;
+        font-size: 15px;
+        font-weight: 600;
+        cursor: pointer;
+        transition: all 0.2s;
+        position: relative;
+      }
+
+      .btn-auth:hover {
+        background: #d9622e;
+        transform: translateY(-1px);
+        box-shadow: 0 4px 12px rgba(217, 98, 46, 0.3);
+      }
+
+      .btn-auth:disabled {
+        opacity: 0.7;
+        cursor: not-allowed;
+        transform: none;
+      }
+
+      .btn-auth .spinner {
+        display: none;
+        width: 20px;
+        height: 20px;
+        border: 2px solid rgba(255, 255, 255, 0.3);
+        border-top-color: #fff;
+        border-radius: 50%;
+        animation: spin 0.6s linear infinite;
+        margin: 0 auto;
+      }
+
+      .btn-auth.loading .spinner {
+        display: block;
+      }
+      .btn-auth.loading .btn-text {
+        display: none;
+      }
+
+      @keyframes spin {
+        to {
+          transform: rotate(360deg);
+        }
+      }
+
+      .divider {
+        display: flex;
+        align-items: center;
+        gap: 16px;
+        margin: 24px 0;
+        color: #a9bfc9;
+        font-size: 12px;
+      }
+      .divider::before,
+      .divider::after {
+        content: "";
+        flex: 1;
+        height: 1px;
+        background: rgba(36, 50, 61, 0.1);
+      }
+
+      .social-btn {
+        width: 100%;
+        padding: 12px;
+        border: 1.5px solid rgba(36, 50, 61, 0.12);
+        border-radius: 99px;
+        background: transparent;
+        font-size: 14px;
+        font-weight: 500;
+        color: #1f2a33;
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 10px;
+        transition: all 0.2s;
+      }
+      .social-btn:hover {
+        background: rgba(36, 50, 61, 0.04);
+        border-color: #d9622e;
+      }
+      .social-btn .google-icon {
+        font-size: 18px;
+        font-weight: 700;
+        background: conic-gradient(
+          from -45deg,
+          #ea4335,
+          #fbbc05,
+          #34a853,
+          #4285f4,
+          #ea4335
+        );
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+      }
+
+      .auth-footer {
+        text-align: center;
+        margin-top: 24px;
+        font-size: 14px;
+        color: #4f6b80;
+      }
+      .auth-footer a {
+        color: #d9622e;
+        text-decoration: none;
+        font-weight: 600;
+      }
+      .auth-footer a:hover {
+        text-decoration: underline;
+      }
+
+      .toast {
+        position: fixed;
+        bottom: 24px;
+        left: 50%;
+        transform: translateX(-50%) translateY(20px);
+        background: #1f2a33;
+        color: #fffdf8;
+        padding: 11px 20px;
+        border-radius: 99px;
+        font-size: 13px;
+        z-index: 200;
+        opacity: 0;
+        transition: all 0.25s ease;
+        pointer-events: none;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+      }
+      .toast.show {
+        opacity: 1;
+        transform: translateX(-50%) translateY(0);
+      }
+      .toast.success {
+        background: #3f5639;
+      }
+      .toast.error {
+        background: #dc3545;
+      }
+
+      @media (max-width: 480px) {
+        .auth-container {
+          padding: 32px 24px;
+        }
+        .auth-logo {
+          font-size: 24px;
+        }
+        .form-options {
+          flex-direction: column;
+          align-items: flex-start;
+          gap: 12px;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="auth-container">
+      <a href="index.html" class="back-link">← Kembali ke Beranda</a>
+
+      <div class="auth-logo">
+        <a href="index.html">Secondstyle.ind<span class="dot">.</span></a>
+      </div>
+      <p class="auth-sub">Masuk ke akunmu dan mulai belanja</p>
+
+      <form id="loginForm" onsubmit="return handleLogin(event);" novalidate>
+        <div class="form-group">
+          <label for="email">Email</label>
+          <input
+            type="email"
+            id="email"
+            placeholder="contoh@email.com"
+            required
+          />
+          <div class="error-text" id="emailError">Email tidak valid</div>
+        </div>
+
+        <div class="form-group">
+          <label for="password">Kata Sandi</label>
+          <input
+            type="password"
+            id="password"
+            placeholder="Masukkan kata sandi"
+            required
+          />
+          <div class="error-text" id="passwordError">
+            Kata sandi minimal 4 karakter
+          </div>
+        </div>
+
+        <div class="form-options">
+          <label><input type="checkbox" id="rememberMe" /> Ingat saya</label>
+          <a href="#" id="forgotPassword">Lupa kata sandi?</a>
+        </div>
+
+        <button type="submit" class="btn-auth" id="loginBtn">
+          <span class="btn-text">Masuk</span>
+          <span class="spinner"></span>
+        </button>
+      </form>
+
+      <div class="divider">atau</div>
+
+      <button class="social-btn" id="googleLogin">
+        <span class="google-icon">G</span> Lanjutkan dengan Google
+      </button>
+
+      <p class="auth-footer">
+        Belum punya akun? <a href="register.html">Daftar sekarang</a>
+      </p>
+    </div>
+
+    <div class="toast" id="toast"></div>
+
+    <script>
+      function showToast(msg, type) {
+        var t = document.getElementById("toast");
+        t.textContent = msg;
+        t.className = "toast";
+        if (type === "success") t.classList.add("success");
+        if (type === "error") t.classList.add("error");
+        t.classList.add("show");
+        clearTimeout(t._timer);
+        t._timer = setTimeout(function () {
+          t.classList.remove("show");
+        }, 3000);
+      }
+
+      function handleLogin(e) {
+        e.preventDefault();
+
+        var email = document.getElementById("email");
+        var password = document.getElementById("password");
+        var emailError = document.getElementById("emailError");
+        var passwordError = document.getElementById("passwordError");
+        var loginBtn = document.getElementById("loginBtn");
+
+        email.classList.remove("error");
+        password.classList.remove("error");
+        emailError.classList.remove("show");
+        passwordError.classList.remove("show");
+
+        var isValid = true;
+        var emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+        if (!email.value.trim() || !emailRegex.test(email.value.trim())) {
+          email.classList.add("error");
+          emailError.classList.add("show");
+          isValid = false;
+        }
+
+        if (!password.value.trim() || password.value.trim().length < 4) {
+          password.classList.add("error");
+          passwordError.classList.add("show");
+          isValid = false;
+        }
+
+        if (!isValid) return false;
+
+        loginBtn.classList.add("loading");
+        loginBtn.disabled = true;
+
+        setTimeout(function () {
+          loginBtn.classList.remove("loading");
+          loginBtn.disabled = false;
+
+          var emailVal = email.value.trim();
+
+          // ✅ SEMUA LOGIN BERHASIL LANGSUNG KE KATALOG
+          showToast("✅ Login berhasil! Selamat datang.", "success");
+          setTimeout(function () {
+            window.location.href = "katalog.html";
+          }, 1200);
+        }, 1000);
+
+        return false;
+      }
+
+      // ===== DOUBLE CLICK LOGO → AUTO-FILL =====
+      document
+        .querySelector(".auth-logo")
+        .addEventListener("dblclick", function () {
+          document.getElementById("email").value = "user@secondstyle.id";
+          document.getElementById("password").value = "user123";
+          showToast("🔑 Demo credentials terisi! Klik Masuk.", "info");
+        });
+
+      // ===== ENTER KEY SUPPORT =====
+      document.addEventListener("keydown", function (e) {
+        if (e.key === "Enter") {
+          var form = document.getElementById("loginForm");
+          if (form.contains(e.target)) {
+            e.preventDefault();
+            form.dispatchEvent(new Event("submit"));
+          }
+        }
+      });
+
+      // ===== REAL-TIME VALIDATION =====
+      document.getElementById("email").addEventListener("input", function () {
+        this.classList.remove("error");
+        document.getElementById("emailError").classList.remove("show");
+      });
+
+      document
+        .getElementById("password")
+        .addEventListener("input", function () {
+          this.classList.remove("error");
+          document.getElementById("passwordError").classList.remove("show");
+        });
+
+      // ===== FORGOT PASSWORD =====
+      document
+        .getElementById("forgotPassword")
+        .addEventListener("click", function (e) {
+          e.preventDefault();
+          showToast("📧 Demo: Link reset akan dikirim ke email", "info");
+        });
+
+      // ===== GOOGLE LOGIN =====
+      document
+        .getElementById("googleLogin")
+        .addEventListener("click", function () {
+          showToast(
+            "🔑 Demo: Login dengan Google (belum terintegrasi)",
+            "info",
+          );
+        });
+    </script>
+  </body>
+</html>
